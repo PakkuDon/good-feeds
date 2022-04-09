@@ -8,6 +8,15 @@ A place to share your bready creations.
 $ mysql
 source db/create_db.sql
 ```
+- Configure environment variables
+```sh
+cp .env.example .env
+# Edit .env file
+```
+- Run application
+```sh
+go run main.go
+```
 
 ## Architecture Decisions
 
