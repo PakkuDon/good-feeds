@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"github.com/go-chi/chi/v5"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
 	"log"
@@ -40,6 +41,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	http.HandleFunc("/healthcheck", healthCheck)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	router := chi.NewRouter()
+	router.Get("/healthcheck", healthCheck)
+
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
