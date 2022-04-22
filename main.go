@@ -12,6 +12,14 @@ import (
 	"os"
 )
 
+type Post struct {
+	ID          int64
+	Title       string
+	ImageURL    string
+	Description string
+	UserID      int64
+}
+
 func healthCheck(writer http.ResponseWriter, request *http.Request) {
 	status := map[string]string{
 		"status":        "ok",
@@ -35,6 +43,36 @@ func healthCheck(writer http.ResponseWriter, request *http.Request) {
 	fmt.Fprint(writer, string(jsonString))
 }
 
+func getPosts(writer http.ResponseWriter, request *http.Request) {
+	databaseUrl := os.Getenv("DATABASE_URL")
+	db, err := sql.Open("mysql", databaseUrl)
+	if err != nil {
+		panic(err)
+	}
+
+	posts := []Post{}
+	rows, err := db.Query("SELECT * FROM posts")
+	if err != nil {
+		panic(err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		post := Post{}
+		if err := rows.Scan(&post.ID, &post.Title, &post.ImageURL, &post.Description, &post.UserID); err != nil {
+			panic(err)
+		}
+		posts = append(posts, post)
+	}
+	jsonString, err := json.Marshal(posts)
+	if err != nil {
+		panic(err)
+	}
+
+	writer.Header().Set("Content-Type", "application/json")
+	fmt.Fprint(writer, string(jsonString))
+}
+
 func main() {
 	err := godotenv.Load()
 	if err != nil {
@@ -43,6 +81,7 @@ func main() {
 
 	router := chi.NewRouter()
 	router.Get("/healthcheck", healthCheck)
+	router.Get("/api/posts", getPosts)
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
