@@ -90,5 +90,6 @@ func main() {
 	router.Get("/healthcheck", healthCheck)
 	router.Get("/api/posts", getPosts)
 
+	log.Println("Server running on localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
