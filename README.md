@@ -6,15 +6,21 @@ A place to share your bready creations.
 - Create database
 ```sql
 $ mysql
-source db/create_db.sql
+source api/db/create_db.sql
 ```
 - Configure environment variables
 ```sh
 cp .env.example .env
 # Edit .env file
 ```
-- Run application
+- Install dependencies for Go server
 ```sh
+cd api
+go get .
+```
+- Run server
+```sh
+cd api
 go run main.go
 ```
 
