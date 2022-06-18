@@ -9,6 +9,7 @@ import (
 	"os"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
 )
@@ -87,6 +88,7 @@ func main() {
 	}
 
 	router := chi.NewRouter()
+	router.Use(middleware.Logger)
 	router.Get("/healthcheck", healthCheck)
 	router.Get("/api/posts", getPosts)
 
