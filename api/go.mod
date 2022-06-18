@@ -1,4 +1,4 @@
-module github.com/PakkuDon/good-breads
+module github.com/PakkuDon/good-breads/api
 
 go 1.17
 

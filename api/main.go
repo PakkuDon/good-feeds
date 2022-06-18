@@ -4,12 +4,13 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"github.com/go-chi/chi/v5"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/joho/godotenv"
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/go-chi/chi/v5"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/joho/godotenv"
 )
 
 type Post struct {
@@ -18,6 +19,12 @@ type Post struct {
 	ImageURL    string
 	Description string
 	UserID      int64
+}
+
+type User struct {
+	ID       int64
+	Username string
+	Email    string
 }
 
 func healthCheck(writer http.ResponseWriter, request *http.Request) {
@@ -74,7 +81,7 @@ func getPosts(writer http.ResponseWriter, request *http.Request) {
 }
 
 func main() {
-	err := godotenv.Load()
+	err := godotenv.Load("../.env")
 	if err != nil {
 		log.Fatal(err)
 	}
