@@ -81,6 +81,36 @@ func getPosts(writer http.ResponseWriter, request *http.Request) {
 	fmt.Fprint(writer, string(jsonString))
 }
 
+func getPost(writer http.ResponseWriter, request *http.Request) {
+	databaseUrl := os.Getenv("DATABASE_URL")
+	db, err := sql.Open("mysql", databaseUrl)
+	if err != nil {
+		panic(err)
+	}
+
+	postId := chi.URLParam(request, "id")
+	row := db.QueryRow(`
+		SELECT *
+		FROM posts
+		WHERE id = ?
+	`, postId)
+	if err != nil {
+		panic(err)
+	}
+
+	post := Post{}
+	if err := row.Scan(&post.ID, &post.Title, &post.ImageURL, &post.Description, &post.UserID); err != nil {
+		panic(err)
+	}
+	jsonString, err := json.Marshal(post)
+	if err != nil {
+		panic(err)
+	}
+
+	writer.Header().Set("Content-Type", "application/json")
+	fmt.Fprint(writer, string(jsonString))
+}
+
 func main() {
 	err := godotenv.Load("../.env")
 	if err != nil {
@@ -91,6 +121,7 @@ func main() {
 	router.Use(middleware.Logger)
 	router.Get("/healthcheck", healthCheck)
 	router.Get("/api/posts", getPosts)
+	router.Get("/api/posts/{id}", getPost)
 
 	log.Println("Server running on localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", router))
