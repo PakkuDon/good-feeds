@@ -28,20 +28,17 @@ type User struct {
 	Email    string
 }
 
-func healthCheck(writer http.ResponseWriter, request *http.Request) {
+type Api struct {
+	database *sql.DB
+}
+
+func (app Api) healthCheck(writer http.ResponseWriter, request *http.Request) {
 	status := map[string]string{
 		"status":        "ok",
 		"db_connection": "connected",
 	}
 
-	databaseUrl := os.Getenv("DATABASE_URL")
-	db, err := sql.Open("mysql", databaseUrl)
-	if err != nil {
-		log.Fatal(err)
-		status["db_connection"] = "disconnected"
-	}
-
-	pingError := db.Ping()
+	pingError := app.database.Ping()
 	if pingError != nil {
 		log.Fatal(pingError)
 		status["db_connection"] = "disconnected"
@@ -51,15 +48,9 @@ func healthCheck(writer http.ResponseWriter, request *http.Request) {
 	fmt.Fprint(writer, string(jsonString))
 }
 
-func getPosts(writer http.ResponseWriter, request *http.Request) {
-	databaseUrl := os.Getenv("DATABASE_URL")
-	db, err := sql.Open("mysql", databaseUrl)
-	if err != nil {
-		panic(err)
-	}
-
+func (app Api) getPosts(writer http.ResponseWriter, request *http.Request) {
 	posts := []Post{}
-	rows, err := db.Query("SELECT * FROM posts")
+	rows, err := app.database.Query("SELECT * FROM posts")
 	if err != nil {
 		panic(err)
 	}
@@ -81,22 +72,13 @@ func getPosts(writer http.ResponseWriter, request *http.Request) {
 	fmt.Fprint(writer, string(jsonString))
 }
 
-func getPost(writer http.ResponseWriter, request *http.Request) {
-	databaseUrl := os.Getenv("DATABASE_URL")
-	db, err := sql.Open("mysql", databaseUrl)
-	if err != nil {
-		panic(err)
-	}
-
+func (app Api) getPost(writer http.ResponseWriter, request *http.Request) {
 	postId := chi.URLParam(request, "id")
-	row := db.QueryRow(`
+	row := app.database.QueryRow(`
 		SELECT *
 		FROM posts
 		WHERE id = ?
 	`, postId)
-	if err != nil {
-		panic(err)
-	}
 
 	post := Post{}
 	if err := row.Scan(&post.ID, &post.Title, &post.ImageURL, &post.Description, &post.UserID); err != nil {
@@ -111,17 +93,30 @@ func getPost(writer http.ResponseWriter, request *http.Request) {
 	fmt.Fprint(writer, string(jsonString))
 }
 
+func (app Api) RegisterRoutes(router *chi.Mux) {
+	router.Get("/healthcheck", app.healthCheck)
+	router.Get("/api/posts", app.getPosts)
+	router.Get("/api/posts/{id}", app.getPost)
+}
+
 func main() {
 	err := godotenv.Load("../.env")
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	databaseUrl := os.Getenv("DATABASE_URL")
+	db, err := sql.Open("mysql", databaseUrl)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+
+	app := Api{database: db}
+
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
-	router.Get("/healthcheck", healthCheck)
-	router.Get("/api/posts", getPosts)
-	router.Get("/api/posts/{id}", getPost)
+	app.RegisterRoutes(router)
 
 	log.Println("Server running on localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", router))
