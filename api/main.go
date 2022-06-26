@@ -112,10 +112,40 @@ func (app Api) getPost(writer http.ResponseWriter, request *http.Request) {
 	fmt.Fprint(writer, string(jsonString))
 }
 
+func (app Api) getUser(writer http.ResponseWriter, request *http.Request) {
+	userId := chi.URLParam(request, "id")
+	row := app.database.QueryRow(`
+		SELECT id, username, email
+		FROM users
+		WHERE id = ?
+	`, userId)
+
+	user := User{}
+	if err := row.Scan(&user.ID, &user.Username, &user.Email); err != nil {
+		log.Println(err)
+		writer.Header().Set("Content-Type", "application/json")
+		writer.WriteHeader(404)
+		writer.Write([]byte{})
+		return
+	}
+	jsonString, err := json.Marshal(user)
+	if err != nil {
+		log.Println(err)
+		writer.Header().Set("Content-Type", "application/json")
+		writer.WriteHeader(500)
+		writer.Write([]byte{})
+		return
+	}
+
+	writer.Header().Set("Content-Type", "application/json")
+	fmt.Fprint(writer, string(jsonString))
+}
+
 func (app Api) RegisterRoutes(router *chi.Mux) {
 	router.Get("/healthcheck", app.healthCheck)
 	router.Get("/api/posts", app.getPosts)
 	router.Get("/api/posts/{id}", app.getPost)
+	router.Get("/api/users/{id}", app.getUser)
 }
 
 func main() {
