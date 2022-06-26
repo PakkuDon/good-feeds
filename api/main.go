@@ -51,21 +51,32 @@ func (app Api) healthCheck(writer http.ResponseWriter, request *http.Request) {
 func (app Api) getPosts(writer http.ResponseWriter, request *http.Request) {
 	posts := []Post{}
 	rows, err := app.database.Query("SELECT * FROM posts")
-	if err != nil {
-		panic(err)
-	}
 	defer rows.Close()
+	if err != nil {
+		log.Println(err)
+		writer.Header().Set("Content-Type", "application/json")
+		writer.WriteHeader(500)
+		writer.Write([]byte{})
+		return
+	}
 
 	for rows.Next() {
 		post := Post{}
 		if err := rows.Scan(&post.ID, &post.Title, &post.ImageURL, &post.Description, &post.UserID); err != nil {
-			panic(err)
+			log.Println(err)
+			writer.Header().Set("Content-Type", "application/json")
+			writer.WriteHeader(500)
+			writer.Write([]byte{})
+			return
 		}
 		posts = append(posts, post)
 	}
 	jsonString, err := json.Marshal(posts)
 	if err != nil {
-		panic(err)
+		log.Println(err)
+		writer.Header().Set("Content-Type", "application/json")
+		writer.WriteHeader(500)
+		return
 	}
 
 	writer.Header().Set("Content-Type", "application/json")
@@ -82,11 +93,19 @@ func (app Api) getPost(writer http.ResponseWriter, request *http.Request) {
 
 	post := Post{}
 	if err := row.Scan(&post.ID, &post.Title, &post.ImageURL, &post.Description, &post.UserID); err != nil {
-		panic(err)
+		log.Println(err)
+		writer.Header().Set("Content-Type", "application/json")
+		writer.WriteHeader(404)
+		writer.Write([]byte{})
+		return
 	}
 	jsonString, err := json.Marshal(post)
 	if err != nil {
-		panic(err)
+		log.Println(err)
+		writer.Header().Set("Content-Type", "application/json")
+		writer.WriteHeader(500)
+		writer.Write([]byte{})
+		return
 	}
 
 	writer.Header().Set("Content-Type", "application/json")
