@@ -8,25 +8,12 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/PakkuDon/good-breads/api/model"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
 )
-
-type Post struct {
-	ID          int64
-	Title       string
-	ImageURL    string
-	Description string
-	UserID      int64
-}
-
-type User struct {
-	ID       int64
-	Username string
-	Email    string
-}
 
 type Api struct {
 	database *sql.DB
@@ -49,7 +36,7 @@ func (app Api) healthCheck(writer http.ResponseWriter, request *http.Request) {
 }
 
 func (app Api) getPosts(writer http.ResponseWriter, request *http.Request) {
-	posts := []Post{}
+	posts := []model.Post{}
 	rows, err := app.database.Query("SELECT * FROM posts")
 	defer rows.Close()
 	if err != nil {
@@ -61,7 +48,7 @@ func (app Api) getPosts(writer http.ResponseWriter, request *http.Request) {
 	}
 
 	for rows.Next() {
-		post := Post{}
+		post := model.Post{}
 		if err := rows.Scan(&post.ID, &post.Title, &post.ImageURL, &post.Description, &post.UserID); err != nil {
 			log.Println(err)
 			writer.Header().Set("Content-Type", "application/json")
@@ -91,7 +78,7 @@ func (app Api) getPost(writer http.ResponseWriter, request *http.Request) {
 		WHERE id = ?
 	`, postId)
 
-	post := Post{}
+	post := model.Post{}
 	if err := row.Scan(&post.ID, &post.Title, &post.ImageURL, &post.Description, &post.UserID); err != nil {
 		log.Println(err)
 		writer.Header().Set("Content-Type", "application/json")
@@ -120,7 +107,7 @@ func (app Api) getUser(writer http.ResponseWriter, request *http.Request) {
 		WHERE id = ?
 	`, userId)
 
-	user := User{}
+	user := model.User{}
 	if err := row.Scan(&user.ID, &user.Username, &user.Email); err != nil {
 		log.Println(err)
 		writer.Header().Set("Content-Type", "application/json")
