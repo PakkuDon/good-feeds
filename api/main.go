@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/PakkuDon/good-breads/api/model"
+	"github.com/PakkuDon/good-breads/api/handler"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	_ "github.com/go-sql-driver/mysql"
@@ -35,104 +35,11 @@ func (app Api) healthCheck(writer http.ResponseWriter, request *http.Request) {
 	fmt.Fprint(writer, string(jsonString))
 }
 
-func (app Api) getPosts(writer http.ResponseWriter, request *http.Request) {
-	posts := []model.Post{}
-	rows, err := app.database.Query("SELECT * FROM posts")
-	defer rows.Close()
-	if err != nil {
-		log.Println(err)
-		writer.Header().Set("Content-Type", "application/json")
-		writer.WriteHeader(500)
-		writer.Write([]byte{})
-		return
-	}
-
-	for rows.Next() {
-		post := model.Post{}
-		if err := rows.Scan(&post.ID, &post.Title, &post.ImageURL, &post.Description, &post.UserID); err != nil {
-			log.Println(err)
-			writer.Header().Set("Content-Type", "application/json")
-			writer.WriteHeader(500)
-			writer.Write([]byte{})
-			return
-		}
-		posts = append(posts, post)
-	}
-	jsonString, err := json.Marshal(posts)
-	if err != nil {
-		log.Println(err)
-		writer.Header().Set("Content-Type", "application/json")
-		writer.WriteHeader(500)
-		return
-	}
-
-	writer.Header().Set("Content-Type", "application/json")
-	fmt.Fprint(writer, string(jsonString))
-}
-
-func (app Api) getPost(writer http.ResponseWriter, request *http.Request) {
-	postId := chi.URLParam(request, "id")
-	row := app.database.QueryRow(`
-		SELECT *
-		FROM posts
-		WHERE id = ?
-	`, postId)
-
-	post := model.Post{}
-	if err := row.Scan(&post.ID, &post.Title, &post.ImageURL, &post.Description, &post.UserID); err != nil {
-		log.Println(err)
-		writer.Header().Set("Content-Type", "application/json")
-		writer.WriteHeader(404)
-		writer.Write([]byte{})
-		return
-	}
-	jsonString, err := json.Marshal(post)
-	if err != nil {
-		log.Println(err)
-		writer.Header().Set("Content-Type", "application/json")
-		writer.WriteHeader(500)
-		writer.Write([]byte{})
-		return
-	}
-
-	writer.Header().Set("Content-Type", "application/json")
-	fmt.Fprint(writer, string(jsonString))
-}
-
-func (app Api) getUser(writer http.ResponseWriter, request *http.Request) {
-	userId := chi.URLParam(request, "id")
-	row := app.database.QueryRow(`
-		SELECT id, username, email
-		FROM users
-		WHERE id = ?
-	`, userId)
-
-	user := model.User{}
-	if err := row.Scan(&user.ID, &user.Username, &user.Email); err != nil {
-		log.Println(err)
-		writer.Header().Set("Content-Type", "application/json")
-		writer.WriteHeader(404)
-		writer.Write([]byte{})
-		return
-	}
-	jsonString, err := json.Marshal(user)
-	if err != nil {
-		log.Println(err)
-		writer.Header().Set("Content-Type", "application/json")
-		writer.WriteHeader(500)
-		writer.Write([]byte{})
-		return
-	}
-
-	writer.Header().Set("Content-Type", "application/json")
-	fmt.Fprint(writer, string(jsonString))
-}
-
 func (app Api) RegisterRoutes(router *chi.Mux) {
 	router.Get("/healthcheck", app.healthCheck)
-	router.Get("/api/posts", app.getPosts)
-	router.Get("/api/posts/{id}", app.getPost)
-	router.Get("/api/users/{id}", app.getUser)
+	router.Get("/api/posts", handler.GetPosts(app.database))
+	router.Get("/api/posts/{id}", handler.GetPost(app.database))
+	router.Get("/api/users/{id}", handler.GetUser(app.database))
 }
 
 func main() {
