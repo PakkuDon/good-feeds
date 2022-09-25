@@ -19,29 +19,6 @@ type Api struct {
 	database *sql.DB
 }
 
-func (app Api) healthCheck(writer http.ResponseWriter, request *http.Request) {
-	status := map[string]string{
-		"status":        "ok",
-		"db_connection": "connected",
-	}
-
-	pingError := app.database.Ping()
-	if pingError != nil {
-		log.Fatal(pingError)
-		status["db_connection"] = "disconnected"
-	}
-
-	jsonString, _ := json.Marshal(status)
-	fmt.Fprint(writer, string(jsonString))
-}
-
-func (app Api) RegisterRoutes(router *chi.Mux) {
-	router.Get("/healthcheck", app.healthCheck)
-	router.Get("/api/posts", handler.GetPosts(app.database))
-	router.Get("/api/posts/{id}", handler.GetPost(app.database))
-	router.Get("/api/users/{id}", handler.GetUser(app.database))
-}
-
 func main() {
 	err := godotenv.Load("../.env")
 	if err != nil {
@@ -59,8 +36,31 @@ func main() {
 
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
-	app.RegisterRoutes(router)
+	app.registerRoutes(router)
 
 	log.Println("Server running on localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", router))
+}
+
+func (app Api) healthCheck(writer http.ResponseWriter, request *http.Request) {
+	status := map[string]string{
+		"status":        "ok",
+		"db_connection": "connected",
+	}
+
+	pingError := app.database.Ping()
+	if pingError != nil {
+		log.Fatal(pingError)
+		status["db_connection"] = "disconnected"
+	}
+
+	jsonString, _ := json.Marshal(status)
+	fmt.Fprint(writer, string(jsonString))
+}
+
+func (app Api) registerRoutes(router *chi.Mux) {
+	router.Get("/healthcheck", app.healthCheck)
+	router.Get("/api/posts", handler.GetPosts(app.database))
+	router.Get("/api/posts/{id}", handler.GetPost(app.database))
+	router.Get("/api/users/{id}", handler.GetUser(app.database))
 }
