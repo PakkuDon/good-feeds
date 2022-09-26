@@ -39,7 +39,7 @@ func main() {
 	app.registerRoutes(router)
 
 	log.Println("Server running on localhost:8080")
-	log.Fatal(http.ListenAndServe(":8080", router))
+	log.Fatal(http.ListenAndServe("localhost:8080", router))
 }
 
 func (app Api) healthCheck(writer http.ResponseWriter, request *http.Request) {
