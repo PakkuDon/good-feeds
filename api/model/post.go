@@ -1,9 +1,9 @@
 package model
 
 type Post struct {
-	ID          int64
-	Title       string
-	ImageURL    string
-	Description string
-	UserID      int64
+	ID          int64  `json:"id"`
+	Title       string `json:"title"`
+	ImageURL    string `json:"imageUrl"`
+	Description string `json:"description"`
+	UserID      int64  `json:"userId"`
 }
