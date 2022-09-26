@@ -78,3 +78,37 @@ func GetPost(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 		fmt.Fprint(writer, string(jsonString))
 	}
 }
+
+func CreatePost(database *sql.DB) func(http.ResponseWriter, *http.Request) {
+	return func(writer http.ResponseWriter, request *http.Request) {
+		post := model.Post{}
+		err := json.NewDecoder(request.Body).Decode(&post)
+		if err != nil {
+			log.Fatal(err)
+			writer.Header().Set("Content-Type", "application/json")
+			writer.WriteHeader(500)
+			writer.Write([]byte{})
+			return
+		}
+		log.Println(post)
+
+		_, err = database.Exec(`INSERT INTO posts (title, description, image_url, user_id) VALUES (?, ?, ?, ?)`,
+			post.Title,
+			post.Description,
+			post.ImageURL,
+			post.UserID,
+		)
+
+		if err != nil {
+			log.Fatal(err)
+			writer.Header().Set("Content-Type", "application/json")
+			writer.WriteHeader(500)
+			writer.Write([]byte{})
+			return
+		}
+		writer.Header().Set("Content-Type", "application/json")
+		writer.WriteHeader(201)
+		writer.Write([]byte{})
+		return
+	}
+}
