@@ -50,7 +50,7 @@ func (app Api) healthCheck(writer http.ResponseWriter, request *http.Request) {
 
 	pingError := app.database.Ping()
 	if pingError != nil {
-		log.Fatal(pingError)
+		log.Println(pingError)
 		status["db_connection"] = "disconnected"
 	}
 

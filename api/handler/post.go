@@ -74,7 +74,7 @@ func CreatePost(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 		post := model.Post{}
 		err := json.NewDecoder(request.Body).Decode(&post)
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
 			writer.Header().Set("Content-Type", "application/json")
 			writer.WriteHeader(500)
 			writer.Write([]byte{})
@@ -84,7 +84,7 @@ func CreatePost(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 		err = repository.InsertPost(database, &post)
 
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
 			writer.Header().Set("Content-Type", "application/json")
 			writer.WriteHeader(500)
 			writer.Write([]byte{})
