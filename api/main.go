@@ -51,10 +51,12 @@ func (app Api) healthCheck(writer http.ResponseWriter, request *http.Request) {
 	pingError := app.database.Ping()
 	if pingError != nil {
 		log.Println(pingError)
+		writer.WriteHeader(500)
 		status["db_connection"] = "disconnected"
 	}
 
 	jsonString, _ := json.Marshal(status)
+	writer.Header().Set("Content-Type", "application/json")
 	fmt.Fprint(writer, string(jsonString))
 }
 
