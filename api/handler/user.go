@@ -6,22 +6,25 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 
-	"github.com/PakkuDon/good-breads/api/model"
+	"github.com/PakkuDon/good-breads/api/repository"
 	"github.com/go-chi/chi/v5"
 )
 
 func GetUser(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 	return func(writer http.ResponseWriter, request *http.Request) {
-		userId := chi.URLParam(request, "id")
-		row := database.QueryRow(`
-			SELECT id, username, email
-			FROM users
-			WHERE id = ?
-		`, userId)
+		userId, err := strconv.Atoi(chi.URLParam(request, "id"))
+		if err != nil {
+			log.Println(err)
+			writer.Header().Set("Content-Type", "application/json")
+			writer.WriteHeader(400)
+			writer.Write([]byte{})
+			return
+		}
 
-		user := model.User{}
-		if err := row.Scan(&user.ID, &user.Username, &user.Email); err != nil {
+		user, err := repository.GetUserById(database, int64(userId))
+		if err != nil {
 			log.Println(err)
 			writer.Header().Set("Content-Type", "application/json")
 			writer.WriteHeader(404)
