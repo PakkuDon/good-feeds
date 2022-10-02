@@ -66,4 +66,5 @@ func (app Api) registerRoutes(router *chi.Mux) {
 	router.Get("/api/posts/{id}", handler.GetPost(app.database))
 	router.Post("/api/posts", handler.CreatePost(app.database))
 	router.Get("/api/users/{id}", handler.GetUser(app.database))
+	router.Get("/api/users/{id}/posts", handler.GetPostsByUser(app.database))
 }
