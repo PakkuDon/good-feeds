@@ -33,7 +33,34 @@ func GetPostById(database *sql.DB, postId int64) (*model.Post, error) {
 	if err := row.Scan(&post.ID, &post.Title, &post.ImageURL, &post.Description, &post.UserID); err != nil {
 		return nil, err
 	}
+
 	return post, nil
+}
+
+func GetPostsByUserId(database *sql.DB, userId int64) ([]model.Post, error) {
+	posts := []model.Post{}
+	rows, err := database.Query(`
+		SELECT *
+		FROM posts
+		WHERE user_id = ?
+	`, userId)
+	defer rows.Close()
+
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		post := model.Post{}
+		if err := rows.Scan(&post.ID, &post.Title, &post.ImageURL, &post.Description, &post.UserID); err != nil {
+			if err != nil {
+				return nil, err
+			}
+		}
+		posts = append(posts, post)
+	}
+
+	return posts, nil
 }
 
 func InsertPost(database *sql.DB, post *model.Post) error {
