@@ -3,7 +3,7 @@ package repository
 import (
 	"database/sql"
 
-	"github.com/PakkuDon/good-breads/api/model"
+	"github.com/PakkuDon/good-feeds/api/model"
 )
 
 func GetPosts(database *sql.DB) ([]model.Post, error) {

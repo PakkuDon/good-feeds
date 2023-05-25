@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/PakkuDon/good-breads/api/repository"
+	"github.com/PakkuDon/good-feeds/api/repository"
 	"github.com/go-chi/chi/v5"
 )
 

@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS good_breads;
+CREATE DATABASE IF NOT EXISTS good_feeds;
 
-USE good_breads;
+USE good_feeds;
 
 CREATE TABLE IF NOT EXISTS users (
     id INT NOT NULL AUTO_INCREMENT,

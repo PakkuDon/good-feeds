@@ -1,6 +1,8 @@
-# Good Breads 🍞
+# Good Feeds 🍽
 
-A place to share your bready creations.
+Formerly known as Good Breads 🍞
+
+A place to find and recommend places to eat or drink.
 
 ## Development instructions
 - Create database

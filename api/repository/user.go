@@ -3,7 +3,7 @@ package repository
 import (
 	"database/sql"
 
-	"github.com/PakkuDon/good-breads/api/model"
+	"github.com/PakkuDon/good-feeds/api/model"
 )
 
 func GetUserById(database *sql.DB, userId int64) (*model.User, error) {

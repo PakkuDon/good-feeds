@@ -1,1 +1,1 @@
-DROP DATABASE good_breads;
+DROP DATABASE good_feeds;

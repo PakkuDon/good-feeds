@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/PakkuDon/good-breads/api/handler"
+	"github.com/PakkuDon/good-feeds/api/handler"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	_ "github.com/go-sql-driver/mysql"
