@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS users (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS posts (
+CREATE TABLE IF NOT EXISTS places (
     id INT NOT NULL AUTO_INCREMENT,
     title TEXT NOT NULL,
     image_url TEXT NOT NULL,
@@ -27,9 +27,9 @@ CREATE TABLE IF NOT EXISTS reviews (
     body TEXT NOT NULL,
     rating INT NOT NULL,
     user_id INT NOT NULL,
-    post_id INT NOT NULL,
+    place_id INT NOT NULL,
 
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (post_id) REFERENCES posts(id)
+    FOREIGN KEY (place_id) REFERENCES places(id)
 );
