@@ -71,7 +71,7 @@ func GetPost(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 
 func CreatePost(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 	return func(writer http.ResponseWriter, request *http.Request) {
-		post := model.Post{}
+		post := model.Place{}
 		err := json.NewDecoder(request.Body).Decode(&post)
 		if err != nil {
 			log.Println(err)
