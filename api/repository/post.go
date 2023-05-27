@@ -8,7 +8,7 @@ import (
 
 func GetPosts(database *sql.DB) ([]model.Place, error) {
 	posts := []model.Place{}
-	rows, err := database.Query("SELECT * FROM posts")
+	rows, err := database.Query("SELECT * FROM places")
 	defer rows.Close()
 
 	for rows.Next() {
@@ -25,7 +25,7 @@ func GetPosts(database *sql.DB) ([]model.Place, error) {
 func GetPostById(database *sql.DB, postId int64) (*model.Place, error) {
 	row := database.QueryRow(`
 		SELECT *
-		FROM posts
+		FROM places
 		WHERE id = ?
 	`, postId)
 
@@ -41,7 +41,7 @@ func GetPostsByUserId(database *sql.DB, userId int64) ([]model.Place, error) {
 	posts := []model.Place{}
 	rows, err := database.Query(`
 		SELECT *
-		FROM posts
+		FROM places
 		WHERE user_id = ?
 	`, userId)
 	defer rows.Close()
