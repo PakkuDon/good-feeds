@@ -64,9 +64,9 @@ func (app Api) registerRoutes(router *chi.Mux) {
 	database := app.database
 
 	router.Get("/healthcheck", app.healthCheck)
-	router.Get("/api/posts", handler.GetPlaces(database))
-	router.Get("/api/posts/{id}", handler.GetPlace(database))
-	router.Post("/api/posts", handler.CreatePlace(database))
+	router.Get("/api/places", handler.GetPlaces(database))
+	router.Get("/api/places/{id}", handler.GetPlace(database))
+	router.Post("/api/places", handler.CreatePlace(database))
 	router.Get("/api/users/{id}", handler.GetUser(database))
-	router.Get("/api/users/{id}/posts", handler.GetPlacesByUser(database))
+	router.Get("/api/users/{id}/places", handler.GetPlacesByUser(database))
 }
