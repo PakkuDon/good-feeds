@@ -13,9 +13,9 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-func GetPosts(database *sql.DB) func(http.ResponseWriter, *http.Request) {
+func GetPlaces(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 	return func(writer http.ResponseWriter, request *http.Request) {
-		posts, err := repository.GetPosts(database)
+		places, err := repository.GetPlaces(database)
 		if err != nil {
 			log.Println(err)
 			writer.Header().Set("Content-Type", "application/json")
@@ -24,7 +24,7 @@ func GetPosts(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 			return
 		}
 
-		jsonString, err := json.Marshal(posts)
+		jsonString, err := json.Marshal(places)
 		if err != nil {
 			log.Println(err)
 			writer.Header().Set("Content-Type", "application/json")
@@ -37,9 +37,9 @@ func GetPosts(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 	}
 }
 
-func GetPost(database *sql.DB) func(http.ResponseWriter, *http.Request) {
+func GetPlace(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 	return func(writer http.ResponseWriter, request *http.Request) {
-		postId, err := strconv.Atoi(chi.URLParam(request, "id"))
+		placeId, err := strconv.Atoi(chi.URLParam(request, "id"))
 		if err != nil {
 			log.Println(err)
 			writer.Header().Set("Content-Type", "application/json")
@@ -47,7 +47,7 @@ func GetPost(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 			writer.Write([]byte{})
 			return
 		}
-		post, err := repository.GetPostById(database, int64(postId))
+		place, err := repository.GetPlaceById(database, int64(placeId))
 		if err != nil {
 			log.Println(err)
 			writer.Header().Set("Content-Type", "application/json")
@@ -55,7 +55,7 @@ func GetPost(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 			writer.Write([]byte{})
 			return
 		}
-		jsonString, err := json.Marshal(post)
+		jsonString, err := json.Marshal(place)
 		if err != nil {
 			log.Println(err)
 			writer.Header().Set("Content-Type", "application/json")
@@ -69,10 +69,10 @@ func GetPost(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 	}
 }
 
-func CreatePost(database *sql.DB) func(http.ResponseWriter, *http.Request) {
+func CreatePlace(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 	return func(writer http.ResponseWriter, request *http.Request) {
-		post := model.Place{}
-		err := json.NewDecoder(request.Body).Decode(&post)
+		place := model.Place{}
+		err := json.NewDecoder(request.Body).Decode(&place)
 		if err != nil {
 			log.Println(err)
 			writer.Header().Set("Content-Type", "application/json")
@@ -81,7 +81,7 @@ func CreatePost(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 			return
 		}
 
-		err = repository.InsertPost(database, &post)
+		err = repository.InsertPlace(database, &place)
 
 		if err != nil {
 			log.Println(err)

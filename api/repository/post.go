@@ -6,39 +6,39 @@ import (
 	"github.com/PakkuDon/good-feeds/api/model"
 )
 
-func GetPosts(database *sql.DB) ([]model.Place, error) {
-	posts := []model.Place{}
+func GetPlaces(database *sql.DB) ([]model.Place, error) {
+	places := []model.Place{}
 	rows, err := database.Query("SELECT * FROM places")
 	defer rows.Close()
 
 	for rows.Next() {
-		post := model.Place{}
-		if err := rows.Scan(&post.ID, &post.Title, &post.ImageURL, &post.Description, &post.UserID); err != nil {
+		place := model.Place{}
+		if err := rows.Scan(&place.ID, &place.Title, &place.ImageURL, &place.Description, &place.UserID); err != nil {
 			return []model.Place{}, err
 		}
-		posts = append(posts, post)
+		places = append(places, place)
 	}
 
-	return posts, err
+	return places, err
 }
 
-func GetPostById(database *sql.DB, postId int64) (*model.Place, error) {
+func GetPlaceById(database *sql.DB, postId int64) (*model.Place, error) {
 	row := database.QueryRow(`
 		SELECT *
 		FROM places
 		WHERE id = ?
 	`, postId)
 
-	post := &model.Place{}
-	if err := row.Scan(&post.ID, &post.Title, &post.ImageURL, &post.Description, &post.UserID); err != nil {
+	place := &model.Place{}
+	if err := row.Scan(&place.ID, &place.Title, &place.ImageURL, &place.Description, &place.UserID); err != nil {
 		return nil, err
 	}
 
-	return post, nil
+	return place, nil
 }
 
-func GetPostsByUserId(database *sql.DB, userId int64) ([]model.Place, error) {
-	posts := []model.Place{}
+func GetPlacesByUserId(database *sql.DB, userId int64) ([]model.Place, error) {
+	places := []model.Place{}
 	rows, err := database.Query(`
 		SELECT *
 		FROM places
@@ -51,24 +51,24 @@ func GetPostsByUserId(database *sql.DB, userId int64) ([]model.Place, error) {
 	}
 
 	for rows.Next() {
-		post := model.Place{}
-		if err := rows.Scan(&post.ID, &post.Title, &post.ImageURL, &post.Description, &post.UserID); err != nil {
+		place := model.Place{}
+		if err := rows.Scan(&place.ID, &place.Title, &place.ImageURL, &place.Description, &place.UserID); err != nil {
 			if err != nil {
 				return nil, err
 			}
 		}
-		posts = append(posts, post)
+		places = append(places, place)
 	}
 
-	return posts, nil
+	return places, nil
 }
 
-func InsertPost(database *sql.DB, post *model.Place) error {
-	_, err := database.Exec(`INSERT INTO posts (title, description, image_url, user_id) VALUES (?, ?, ?, ?)`,
-		post.Title,
-		post.Description,
-		post.ImageURL,
-		post.UserID,
+func InsertPlace(database *sql.DB, place *model.Place) error {
+	_, err := database.Exec(`INSERT INTO places (title, description, image_url, user_id) VALUES (?, ?, ?, ?)`,
+		place.Title,
+		place.Description,
+		place.ImageURL,
+		place.UserID,
 	)
 	if err != nil {
 		return err

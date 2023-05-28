@@ -45,7 +45,7 @@ func GetUser(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 	}
 }
 
-func GetPostsByUser(database *sql.DB) func(http.ResponseWriter, *http.Request) {
+func GetPlacesByUser(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 	return func(writer http.ResponseWriter, request *http.Request) {
 		userId, err := strconv.Atoi(chi.URLParam(request, "id"))
 		if err != nil {
@@ -56,7 +56,7 @@ func GetPostsByUser(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 			return
 		}
 
-		posts, err := repository.GetPostsByUserId(database, int64(userId))
+		places, err := repository.GetPlacesByUserId(database, int64(userId))
 		if err != nil {
 			log.Println(err)
 			writer.Header().Set("Content-Type", "application/json")
@@ -65,7 +65,7 @@ func GetPostsByUser(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 			return
 		}
 
-		jsonString, err := json.Marshal(posts)
+		jsonString, err := json.Marshal(places)
 		if err != nil {
 			log.Println(err)
 			writer.Header().Set("Content-Type", "application/json")
