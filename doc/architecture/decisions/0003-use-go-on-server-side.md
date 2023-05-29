@@ -18,4 +18,5 @@ The backend for this project will be written in [Go](https://go.dev/).
 
 ## Consequences
 
-This will be my first side project that uses Go.
+- This will be my first side project that uses Go.
+- Backend will be written in a statically-typed language which will enable us to detect some types of issues at compile time.
