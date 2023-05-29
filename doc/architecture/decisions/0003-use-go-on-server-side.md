@@ -10,7 +10,7 @@ Accepted
 
 As this is a full stack project we need to pick a language and framework for our backend.
 
-This project is also intended to be a [breakable toy](https://www.oreilly.com/library/view/apprenticeship-patterns/9780596806842/ch05.html#breakable_toys) where I can experience with other technologies or practices.
+This project is also intended to be a [breakable toy](https://www.oreilly.com/library/view/apprenticeship-patterns/9780596806842/ch05.html#breakable_toys) where I can experiment with other technologies or practices.
 
 ## Decision
 
