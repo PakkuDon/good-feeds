@@ -20,10 +20,19 @@ cp .env.example .env
 cd api
 go get .
 ```
-- Run server
+- Run backend server
 ```sh
 cd api
 go run main.go
+```
+- Install dependencies for frontend
+```sh
+cd client
+npm i
+```
+- Start frontend
+```sh
+npm run dev
 ```
 
 ## Architecture Decisions
