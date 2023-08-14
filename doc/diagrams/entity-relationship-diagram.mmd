@@ -1,0 +1,8 @@
+---
+title: Entity Relationship Diagram - Good Feeds
+---
+erDiagram
+    User ||--o{ Place : adds
+    Place }o--o{ DietaryOption : caters_to
+    Place ||--o{ Review : has
+    User ||..o{ Review : writes
