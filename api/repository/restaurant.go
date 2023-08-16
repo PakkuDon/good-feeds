@@ -19,7 +19,15 @@ func GetRestaurants(database *sql.DB) ([]model.Restaurant, error) {
 
 	for rows.Next() {
 		restaurant := model.Restaurant{}
-		if err := rows.Scan(&restaurant.ID, &restaurant.Title, &restaurant.ImageURL, &restaurant.Description); err != nil {
+		if err := rows.Scan(
+			&restaurant.ID,
+			&restaurant.Title,
+			&restaurant.Address,
+			&restaurant.Latitude,
+			&restaurant.Longitude,
+			&restaurant.ImageURL,
+			&restaurant.Description,
+		); err != nil {
 			return []model.Restaurant{}, err
 		}
 		restaurants = append(restaurants, restaurant)
@@ -36,7 +44,15 @@ func GetRestaurantById(database *sql.DB, restaurantId int64) (*model.Restaurant,
 	`, restaurantId)
 
 	restaurant := &model.Restaurant{}
-	if err := row.Scan(&restaurant.ID, &restaurant.Title, &restaurant.ImageURL, &restaurant.Description); err != nil {
+	if err := row.Scan(
+		&restaurant.ID,
+		&restaurant.Title,
+		&restaurant.Address,
+		&restaurant.Latitude,
+		&restaurant.Longitude,
+		&restaurant.ImageURL,
+		&restaurant.Description,
+	); err != nil {
 		return nil, err
 	}
 
@@ -44,10 +60,21 @@ func GetRestaurantById(database *sql.DB, restaurantId int64) (*model.Restaurant,
 }
 
 func InsertRestaurant(database *sql.DB, restaurant *model.Restaurant) error {
-	_, err := database.Exec(`INSERT INTO restaurants (title, description, image_url) VALUES (?, ?, ?)`,
+	_, err := database.Exec(`
+		INSERT INTO restaurants (
+			title,
+			description,
+			image_url,
+			address,
+			latitude,
+			longitude
+		) VALUES (?, ?, ?, ?, ?, ?)`,
 		restaurant.Title,
 		restaurant.Description,
 		restaurant.ImageURL,
+		restaurant.Address,
+		restaurant.Latitude,
+		restaurant.Longitude,
 	)
 	if err != nil {
 		log.Fatal(err)
