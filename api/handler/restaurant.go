@@ -13,9 +13,9 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-func GetPlaces(database *sql.DB) func(http.ResponseWriter, *http.Request) {
+func GetRestaurants(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 	return func(writer http.ResponseWriter, request *http.Request) {
-		places, err := repository.GetPlaces(database)
+		restaurants, err := repository.GetRestaurants(database)
 		if err != nil {
 			log.Println(err)
 			writer.Header().Set("Content-Type", "application/json")
@@ -24,7 +24,7 @@ func GetPlaces(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 			return
 		}
 
-		jsonString, err := json.Marshal(places)
+		jsonString, err := json.Marshal(restaurants)
 		if err != nil {
 			log.Println(err)
 			writer.Header().Set("Content-Type", "application/json")
@@ -37,9 +37,9 @@ func GetPlaces(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 	}
 }
 
-func GetPlace(database *sql.DB) func(http.ResponseWriter, *http.Request) {
+func GetRestaurant(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 	return func(writer http.ResponseWriter, request *http.Request) {
-		placeId, err := strconv.Atoi(chi.URLParam(request, "id"))
+		restaurantId, err := strconv.Atoi(chi.URLParam(request, "id"))
 		if err != nil {
 			log.Println(err)
 			writer.Header().Set("Content-Type", "application/json")
@@ -47,7 +47,7 @@ func GetPlace(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 			writer.Write([]byte{})
 			return
 		}
-		place, err := repository.GetPlaceById(database, int64(placeId))
+		restaurant, err := repository.GetRestaurantById(database, int64(restaurantId))
 		if err != nil {
 			log.Println(err)
 			writer.Header().Set("Content-Type", "application/json")
@@ -55,7 +55,7 @@ func GetPlace(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 			writer.Write([]byte{})
 			return
 		}
-		jsonString, err := json.Marshal(place)
+		jsonString, err := json.Marshal(restaurant)
 		if err != nil {
 			log.Println(err)
 			writer.Header().Set("Content-Type", "application/json")
@@ -69,10 +69,10 @@ func GetPlace(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 	}
 }
 
-func CreatePlace(database *sql.DB) func(http.ResponseWriter, *http.Request) {
+func CreateRestaurant(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 	return func(writer http.ResponseWriter, request *http.Request) {
-		place := model.Place{}
-		err := json.NewDecoder(request.Body).Decode(&place)
+		restaurant := model.Restaurant{}
+		err := json.NewDecoder(request.Body).Decode(&restaurant)
 		if err != nil {
 			log.Println(err)
 			writer.Header().Set("Content-Type", "application/json")
@@ -81,7 +81,7 @@ func CreatePlace(database *sql.DB) func(http.ResponseWriter, *http.Request) {
 			return
 		}
 
-		err = repository.InsertPlace(database, &place)
+		err = repository.InsertRestaurant(database, &restaurant)
 
 		if err != nil {
 			log.Println(err)

@@ -1,0 +1,57 @@
+package repository
+
+import (
+	"database/sql"
+	"log"
+
+	"github.com/PakkuDon/good-feeds/api/model"
+)
+
+func GetRestaurants(database *sql.DB) ([]model.Restaurant, error) {
+	restaurants := []model.Restaurant{}
+	rows, err := database.Query("SELECT * FROM restaurants")
+
+	if err != nil {
+		log.Fatal(err)
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		restaurant := model.Restaurant{}
+		if err := rows.Scan(&restaurant.ID, &restaurant.Title, &restaurant.ImageURL, &restaurant.Description); err != nil {
+			return []model.Restaurant{}, err
+		}
+		restaurants = append(restaurants, restaurant)
+	}
+
+	return restaurants, err
+}
+
+func GetRestaurantById(database *sql.DB, restaurantId int64) (*model.Restaurant, error) {
+	row := database.QueryRow(`
+		SELECT *
+		FROM restaurants
+		WHERE id = ?
+	`, restaurantId)
+
+	restaurant := &model.Restaurant{}
+	if err := row.Scan(&restaurant.ID, &restaurant.Title, &restaurant.ImageURL, &restaurant.Description); err != nil {
+		return nil, err
+	}
+
+	return restaurant, nil
+}
+
+func InsertRestaurant(database *sql.DB, restaurant *model.Restaurant) error {
+	_, err := database.Exec(`INSERT INTO restaurants (title, description, image_url) VALUES (?, ?, ?)`,
+		restaurant.Title,
+		restaurant.Description,
+		restaurant.ImageURL,
+	)
+	if err != nil {
+		log.Fatal(err)
+		return err
+	}
+	return nil
+}
