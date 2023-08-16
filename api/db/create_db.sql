@@ -4,7 +4,7 @@ USE good_feeds;
 
 CREATE TABLE IF NOT EXISTS restaurants (
     id INT NOT NULL AUTO_INCREMENT,
-    title TEXT NOT NULL,
+    name TEXT NOT NULL,
     address TEXT NOT NULL,
     latitude DECIMAL(8,6),
     longitude DECIMAL(9,6),

@@ -21,7 +21,7 @@ func GetRestaurants(database *sql.DB) ([]model.Restaurant, error) {
 		restaurant := model.Restaurant{}
 		if err := rows.Scan(
 			&restaurant.ID,
-			&restaurant.Title,
+			&restaurant.Name,
 			&restaurant.Address,
 			&restaurant.Latitude,
 			&restaurant.Longitude,
@@ -46,7 +46,7 @@ func GetRestaurantById(database *sql.DB, restaurantId int64) (*model.Restaurant,
 	restaurant := &model.Restaurant{}
 	if err := row.Scan(
 		&restaurant.ID,
-		&restaurant.Title,
+		&restaurant.Name,
 		&restaurant.Address,
 		&restaurant.Latitude,
 		&restaurant.Longitude,
@@ -62,14 +62,14 @@ func GetRestaurantById(database *sql.DB, restaurantId int64) (*model.Restaurant,
 func InsertRestaurant(database *sql.DB, restaurant *model.Restaurant) error {
 	_, err := database.Exec(`
 		INSERT INTO restaurants (
-			title,
+			name,
 			description,
 			image_url,
 			address,
 			latitude,
 			longitude
 		) VALUES (?, ?, ?, ?, ?, ?)`,
-		restaurant.Title,
+		restaurant.Name,
 		restaurant.Description,
 		restaurant.ImageURL,
 		restaurant.Address,

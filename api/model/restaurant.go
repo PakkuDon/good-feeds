@@ -2,7 +2,7 @@ package model
 
 type Restaurant struct {
 	ID          int64   `json:"id"`
-	Title       string  `json:"title"`
+	Name        string  `json:"name"`
 	ImageURL    string  `json:"imageUrl"`
 	Description string  `json:"description"`
 	Address     string  `json:"address"`

@@ -20,7 +20,7 @@ export default async function Home() {
       <main>
         <ul>
           {data.map((restaurant: any) => (
-            <li key={restaurant.id}>{restaurant.title}</li>
+            <li key={restaurant.id}>{restaurant.name}</li>
           ))}
         </ul>
       </main>
