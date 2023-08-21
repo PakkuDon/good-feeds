@@ -23,3 +23,19 @@ CREATE TABLE IF NOT EXISTS restaurant_links (
     PRIMARY KEY (id),
     FOREIGN KEY (restaurant_id) REFERENCES restaurants(id)
 );
+
+CREATE TABLE IF NOT EXISTS dietary_options (
+    id INT NOT NULL AUTO_INCREMENT,
+    label TEXT NOT NULL,
+
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS restaurant_dietary_options (
+    restaurant_id INT NOT NULL,
+    dietary_option_id INT NOT NULL,
+
+    PRIMARY KEY (restaurant_id, dietary_option_id),
+    FOREIGN KEY (restaurant_id) REFERENCES restaurants(id),
+    FOREIGN KEY (dietary_option_id) REFERENCES dietary_options(id)
+);
