@@ -1,17 +1,17 @@
-interface Restaurant {
+import dynamic from 'next/dynamic'
+
+const Map = dynamic(() => import('./Map'), {
+  loading: () => <p>loading...</p>,
+  ssr: false
+})
+
+export interface Restaurant {
   id: number
   name: string
+  description: string
   latitude: number
   longitude: number
 }
-
-const Map = ({ locations }: { locations: Restaurant[] }) => (
-  <ul>
-    {locations.map((location: Restaurant) => (
-      <li key={location.id}>{location.name}</li>
-    ))}
-  </ul>
-)
 
 async function getRestaurants(): Promise<Restaurant[]> {
   const response = await fetch("http://localhost:8080/api/restaurants")
