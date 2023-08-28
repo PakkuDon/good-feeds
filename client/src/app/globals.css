@@ -24,4 +24,28 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  height: 100vh;
+}
+
+.main {
+  height: 100%;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  grid-template-columns: 1fr 5fr;
+  grid-gap: 5px;
+  grid-template-areas:
+    "header header"
+    "sidebar content"
+}
+
+.main-header {
+  grid-area: header;
+}
+
+.main-sidebar {
+  grid-area: sidebar;
+}
+
+.main-content {
+  grid-area: content;
 }
