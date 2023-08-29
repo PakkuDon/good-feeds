@@ -64,7 +64,10 @@ func (app Api) registerRoutes(router *chi.Mux) {
 	database := app.database
 
 	router.Get("/healthcheck", app.healthCheck)
+
 	router.Get("/api/restaurants", handler.GetRestaurants(database))
 	router.Get("/api/restaurants/{id}", handler.GetRestaurant(database))
 	router.Post("/api/restaurants", handler.CreateRestaurant(database))
+
+	router.Get("/api/dietaryOptions", handler.GetDietaryOptions(database))
 }
