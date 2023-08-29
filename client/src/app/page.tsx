@@ -13,17 +13,32 @@ export interface Restaurant {
   longitude: number
 }
 
+export interface DietaryOptions {
+  id: number
+  label: string
+}
+
 async function getRestaurants(): Promise<Restaurant[]> {
   const response = await fetch("http://localhost:8080/api/restaurants")
 
   if (!response.ok) {
-    throw new Error("Failed to fetch data")
+    throw new Error("Failed to fetch data from /api/restaurants")
+  }
+  return response.json()
+}
+
+async function getDietaryOptions(): Promise<DietaryOptions[]> {
+  const response = await fetch("http://localhost:8080/api/dietaryOptions")
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch data from /api/dietaryOptions")
   }
   return response.json()
 }
 
 export default async function Home() {
-  const data = await getRestaurants()
+  const restaurants = await getRestaurants()
+  const dietaryOptions = await getDietaryOptions()
 
   return (
     <main className="main">
@@ -33,10 +48,15 @@ export default async function Home() {
         </h1>
       </header>
       <aside className="main-sidebar">
-        Sidebar
+        <h2>Filter options</h2>
+        <ul>
+        {dietaryOptions.map(({ label }) => (
+          <li key={`option-${label}`}>{label}</li>
+        ))}
+        </ul>
       </aside>
       <main className="main-content">
-        <Map locations={data} />
+        <Map locations={restaurants} />
       </main>
     </main>
   )
