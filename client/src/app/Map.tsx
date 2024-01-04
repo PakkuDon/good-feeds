@@ -20,7 +20,7 @@ const Map = ({ locations }: { locations: Restaurant[] }) => (
   <MapContainer center={[-37.8136, 144.9631]} zoom={12} scrollWheelZoom={false}>
     <TileLayer
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      url="https://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
     />
     {locations.map(location => (
       <Marker key={`location-${location.id}`} position={[location.latitude, location.longitude]} icon={customMarkerIcon}>
