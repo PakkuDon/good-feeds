@@ -8,9 +8,15 @@ const Map = dynamic(() => import('./Map'), {
 export interface Restaurant {
   id: number
   name: string
+  address: string
   description: string
   latitude: number
   longitude: number
+  links: {
+    label: string
+    url: string
+  }[]
+  dietaryOptions: string[]
 }
 
 export interface DietaryOptions {

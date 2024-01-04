@@ -26,7 +26,16 @@ const Map = ({ locations }: { locations: Restaurant[] }) => (
       <Marker key={`location-${location.id}`} position={[location.latitude, location.longitude]} icon={customMarkerIcon}>
         <Popup>
           <strong>{location.name}</strong>
+          <p><b>Address:</b> {location.address}</p>
           <p>{location.description}</p>
+          <p><b>Dietary options:</b> {location.dietaryOptions.join(", ")}</p>
+          <ul className="list-disc list-inside">
+            {location.links.map(link => (
+              <li key={`${location.id}-${link.label}`}>
+                <a href={link.url} target="_blank">{link.label}</a>
+              </li>
+            ))}
+          </ul>
         </Popup>
       </Marker>
     ))}
