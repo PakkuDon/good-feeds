@@ -17,7 +17,7 @@ const customMarkerIcon = L.icon({
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 
 const Map = ({ locations }: { locations: Restaurant[] }) => (
-  <MapContainer center={[-37.8136, 144.9631]} zoom={12} scrollWheelZoom={false}>
+  <MapContainer center={[-37.8136, 144.9631]} zoom={12}>
     <TileLayer
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       url="https://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
