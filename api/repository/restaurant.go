@@ -49,7 +49,13 @@ func GetRestaurants(database *sql.DB) ([]model.Restaurant, error) {
 			return []model.Restaurant{}, err
 		}
 		_ = json.Unmarshal([]byte(optionsJson), &parsedOptions)
+
+		links, err := GetLinksForRestaurant(database, restaurant.ID)
+		if err != nil {
+			return []model.Restaurant{}, err
+		}
 		restaurant.DietaryOptions = parsedOptions
+		restaurant.Links = links
 		restaurants = append(restaurants, restaurant)
 	}
 
@@ -91,8 +97,33 @@ func GetRestaurantById(database *sql.DB, restaurantId int64) (*model.Restaurant,
 	}
 
 	_ = json.Unmarshal([]byte(optionsJson), &parsedOptions)
+	links, err := GetLinksForRestaurant(database, restaurant.ID)
+	if err != nil {
+		return nil, err
+	}
 	restaurant.DietaryOptions = parsedOptions
+	restaurant.Links = links
 	return restaurant, nil
+}
+
+func GetLinksForRestaurant(database *sql.DB, restaurantId int64) ([]model.Link, error) {
+	row := database.QueryRow(`
+		SELECT JSON_ARRAYAGG(JSON_OBJECT("label", restaurant_links.label, "url", restaurant_links.url)) as links
+		FROM restaurant_links
+		WHERE restaurant_id = ?
+		GROUP BY restaurant_id
+	`, restaurantId)
+
+	links := []model.Link{}
+	linksJson := []byte{}
+	if err := row.Scan(
+		&linksJson,
+	); err != nil {
+		return nil, err
+	}
+
+	_ = json.Unmarshal(linksJson, &links)
+	return links, nil
 }
 
 func InsertRestaurant(database *sql.DB, restaurant *model.Restaurant) error {

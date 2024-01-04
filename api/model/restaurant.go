@@ -1,5 +1,10 @@
 package model
 
+type Link struct {
+	Label string `json:"label"`
+	URL   string `json:"url"`
+}
+
 type Restaurant struct {
 	ID             int64    `json:"id"`
 	Name           string   `json:"name"`
@@ -9,4 +14,5 @@ type Restaurant struct {
 	Latitude       float64  `json:"latitude"`
 	Longitude      float64  `json:"longitude"`
 	DietaryOptions []string `json:"dietaryOptions"`
+	Links          []Link   `json:"links"`
 }
