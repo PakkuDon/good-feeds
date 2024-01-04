@@ -21,8 +21,8 @@ func GetRestaurants(database *sql.DB) ([]model.Restaurant, error) {
 			restaurants.description,
 			JSON_ARRAYAGG(dietary_options.label) as dietary_options
 		FROM restaurants
-		JOIN restaurant_dietary_options ON restaurants.id = restaurant_dietary_options.restaurant_id
-		JOIN dietary_options ON restaurant_dietary_options.dietary_option_id = dietary_options.id
+		LEFT JOIN restaurant_dietary_options ON restaurants.id = restaurant_dietary_options.restaurant_id
+		LEFT JOIN dietary_options ON restaurant_dietary_options.dietary_option_id = dietary_options.id
 		GROUP BY restaurants.id
 	`)
 
@@ -68,8 +68,8 @@ func GetRestaurantById(database *sql.DB, restaurantId int64) (*model.Restaurant,
 			restaurants.description,
 			JSON_ARRAYAGG(dietary_options.label) as dietary_options
 		FROM restaurants
-		JOIN restaurant_dietary_options ON restaurants.id = restaurant_dietary_options.restaurant_id
-		JOIN dietary_options ON restaurant_dietary_options.dietary_option_id = dietary_options.id
+		LEFT JOIN restaurant_dietary_options ON restaurants.id = restaurant_dietary_options.restaurant_id
+		LEFT JOIN dietary_options ON restaurant_dietary_options.dietary_option_id = dietary_options.id
 		WHERE restaurants.id = ?
 		GROUP BY restaurants.id
 	`, restaurantId)
