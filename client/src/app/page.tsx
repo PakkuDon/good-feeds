@@ -59,7 +59,12 @@ export default async function Home() {
         <h2>Filter options</h2>
         <ul>
         {dietaryOptions.map(({ label }) => (
-          <li key={`option-${label}`}>{label}</li>
+          <div key={`option-${label}`}>
+            <label>
+              <input type="checkbox" />
+              {" "}{label}
+            </label>
+          </div>
         ))}
         </ul>
       </aside>
