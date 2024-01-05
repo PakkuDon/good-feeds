@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useState } from 'react'
 import dynamic from 'next/dynamic'
 import { DietaryOptions, Restaurant } from "./page";
 
@@ -15,6 +15,20 @@ interface MainContentProps {
 }
 
 export default function MainContent({ restaurants, dietaryOptions}: MainContentProps) {
+  const [filters, setFilters] = useState<string[]>([])
+
+  const toggleFilter = (label: string) => {
+    if (filters.includes(label)) {
+      setFilters([...filters.filter(value => value !== label)])
+    } else {
+      setFilters([...filters, label])
+    }
+  }
+
+  const restaurantResults = restaurants.filter(restaurant => (
+    filters.every(option => restaurant.dietaryOptions.includes(option))
+  ))
+
   return (
     <>
       <aside className="main-sidebar">
@@ -23,7 +37,7 @@ export default function MainContent({ restaurants, dietaryOptions}: MainContentP
         {dietaryOptions.map(({ label }) => (
           <div key={`option-${label}`}>
             <label>
-              <input type="checkbox" />
+              <input type="checkbox" checked={filters.includes(label)} onChange={() => toggleFilter(label)} />
               {" "}{label}
             </label>
           </div>
@@ -31,7 +45,7 @@ export default function MainContent({ restaurants, dietaryOptions}: MainContentP
         </ul>
       </aside>
       <main className="main-content">
-        <Map locations={restaurants} />
+        <Map locations={restaurantResults} />
       </main>
   </>
   )
