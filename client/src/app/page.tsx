@@ -25,21 +25,23 @@ export interface DietaryOptions {
 }
 
 async function getRestaurants(): Promise<Restaurant[]> {
-  const response = await fetch("http://localhost:8080/api/restaurants")
+  const response = await fetch(`${process.env.NEXT_PUBLIC_CLIENT_HOST}/api/restaurants`)
+  const json = await response.json()
 
   if (!response.ok) {
     throw new Error("Failed to fetch data from /api/restaurants")
   }
-  return response.json()
+  return json.data
 }
 
 async function getDietaryOptions(): Promise<DietaryOptions[]> {
-  const response = await fetch("http://localhost:8080/api/dietaryOptions")
+  const response = await fetch(`${process.env.NEXT_PUBLIC_CLIENT_HOST}/api/dietaryOptions`)
+  const json = await response.json()
 
   if (!response.ok) {
     throw new Error("Failed to fetch data from /api/dietaryOptions")
   }
-  return response.json()
+  return json.data
 }
 
 export default async function Home() {
