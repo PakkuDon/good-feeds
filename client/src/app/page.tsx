@@ -1,9 +1,4 @@
-import dynamic from 'next/dynamic'
-
-const Map = dynamic(() => import('./Map'), {
-  loading: () => <p>loading...</p>,
-  ssr: false
-})
+import MainContent from './MainContent'
 
 export interface Restaurant {
   id: number
@@ -55,22 +50,7 @@ export default async function Home() {
           Good Feeds
         </h1>
       </header>
-      <aside className="main-sidebar">
-        <h2>Filter options</h2>
-        <ul>
-        {dietaryOptions.map(({ label }) => (
-          <div key={`option-${label}`}>
-            <label>
-              <input type="checkbox" />
-              {" "}{label}
-            </label>
-          </div>
-        ))}
-        </ul>
-      </aside>
-      <main className="main-content">
-        <Map locations={restaurants} />
-      </main>
+      <MainContent restaurants={restaurants} dietaryOptions={dietaryOptions} />
     </main>
   )
 }
