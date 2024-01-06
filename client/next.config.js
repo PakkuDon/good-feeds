@@ -1,4 +1,18 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+
+const path = require("path")
+
+const basePath = "/good-feeds"
+
+// IS_DEPLOY determines whether or not the dist bundle should include
+// the basePath. This is not required on Github Pages as the files are
+// hosted at the basePath (assuming basePath matches repo name)
+const distDir = process.env.IS_DEPLOY ? "dist" : path.join("dist", basePath)
+
+const nextConfig = {
+  output: "export",
+  basePath,
+  distDir,
+}
 
 module.exports = nextConfig
