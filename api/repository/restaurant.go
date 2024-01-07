@@ -119,6 +119,9 @@ func GetLinksForRestaurant(database *sql.DB, restaurantId int64) ([]model.Link, 
 	if err := row.Scan(
 		&linksJson,
 	); err != nil {
+		if err.Error() == "sql: no rows in result set" {
+			return []model.Link{}, nil
+		}
 		return nil, err
 	}
 
