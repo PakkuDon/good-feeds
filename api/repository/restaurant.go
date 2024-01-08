@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"log"
+	"time"
 
 	"github.com/PakkuDon/good-feeds/api/model"
 )
@@ -19,6 +20,8 @@ func GetRestaurants(database *sql.DB) ([]model.Restaurant, error) {
 			restaurants.longitude,
 			restaurants.image_url,
 			restaurants.description,
+			restaurants.added_at,
+			restaurants.updated_at,
 			JSON_ARRAYAGG(dietary_options.label) as dietary_options
 		FROM restaurants
 		LEFT JOIN restaurant_dietary_options ON restaurants.id = restaurant_dietary_options.restaurant_id
@@ -35,6 +38,8 @@ func GetRestaurants(database *sql.DB) ([]model.Restaurant, error) {
 	for rows.Next() {
 		restaurant := model.Restaurant{}
 		optionsJson := []byte{}
+		addedAtByteArray := []byte{}
+		updatedAtByteArray := []byte{}
 		parsedOptions := []string{}
 		if err := rows.Scan(
 			&restaurant.ID,
@@ -44,12 +49,17 @@ func GetRestaurants(database *sql.DB) ([]model.Restaurant, error) {
 			&restaurant.Longitude,
 			&restaurant.ImageURL,
 			&restaurant.Description,
+			&addedAtByteArray,
+			&updatedAtByteArray,
 			&optionsJson,
 		); err != nil {
 			return []model.Restaurant{}, err
 		}
-		_ = json.Unmarshal([]byte(optionsJson), &parsedOptions)
 
+		restaurant.AddedAt, _ = time.Parse(time.DateTime, string(addedAtByteArray))
+		restaurant.UpdatedAt, _ = time.Parse(time.DateTime, string(updatedAtByteArray))
+
+		_ = json.Unmarshal([]byte(optionsJson), &parsedOptions)
 		links, err := GetLinksForRestaurant(database, restaurant.ID)
 		if err != nil {
 			return []model.Restaurant{}, err
@@ -72,6 +82,8 @@ func GetRestaurantById(database *sql.DB, restaurantId int64) (*model.Restaurant,
 			restaurants.longitude,
 			restaurants.image_url,
 			restaurants.description,
+			restaurants.added_at,
+			restaurants.updated_at,
 			JSON_ARRAYAGG(dietary_options.label) as dietary_options
 		FROM restaurants
 		LEFT JOIN restaurant_dietary_options ON restaurants.id = restaurant_dietary_options.restaurant_id
@@ -82,6 +94,8 @@ func GetRestaurantById(database *sql.DB, restaurantId int64) (*model.Restaurant,
 
 	restaurant := &model.Restaurant{}
 	optionsJson := []byte{}
+	addedAtByteArray := []byte{}
+	updatedAtByteArray := []byte{}
 	parsedOptions := []string{}
 	if err := row.Scan(
 		&restaurant.ID,
@@ -91,10 +105,15 @@ func GetRestaurantById(database *sql.DB, restaurantId int64) (*model.Restaurant,
 		&restaurant.Longitude,
 		&restaurant.ImageURL,
 		&restaurant.Description,
+		&addedAtByteArray,
+		&updatedAtByteArray,
 		&optionsJson,
 	); err != nil {
 		return nil, err
 	}
+
+	restaurant.AddedAt, _ = time.Parse(time.DateTime, string(addedAtByteArray))
+	restaurant.UpdatedAt, _ = time.Parse(time.DateTime, string(updatedAtByteArray))
 
 	_ = json.Unmarshal([]byte(optionsJson), &parsedOptions)
 	links, err := GetLinksForRestaurant(database, restaurant.ID)
