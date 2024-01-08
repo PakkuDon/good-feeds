@@ -31,6 +31,9 @@ const Map = ({ locations }: { locations: Restaurant[] }) => (
       >
         <Popup>
           <strong>{location.name}</strong>
+          <div className="text-xs text-gray-600">
+            Listing updated at {new Date(location.updatedAt).toDateString()}
+          </div>
           <p>
             <b>Address:</b> {location.address}
           </p>

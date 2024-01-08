@@ -12,6 +12,8 @@ export interface Restaurant {
     url: string;
   }[];
   dietaryOptions: string[];
+  addedAt: string;
+  updatedAt: string;
 }
 
 export interface DietaryOptions {
