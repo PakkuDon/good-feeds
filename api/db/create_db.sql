@@ -10,8 +10,8 @@ CREATE TABLE IF NOT EXISTS restaurants (
     longitude DECIMAL(9,6),
     image_url TEXT NOT NULL,
     description TEXT NOT NULL,
-    added_at DATETIME NOT NULL,
-    updated_at DATETIME NOT NULL,
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
     PRIMARY KEY (id)
 );
