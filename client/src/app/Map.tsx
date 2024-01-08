@@ -8,7 +8,9 @@ import markerShadow from "leaflet/dist/images/marker-shadow.png";
 
 import { Restaurant } from "./page";
 
-const customMarkerIcon = L.icon({
+// Resolves an issue where Leaflet icons are not available in Next.js
+// Taken from https://github.com/Leaflet/Leaflet/issues/4968#issuecomment-483402699
+L.Icon.Default.mergeOptions({
   iconUrl: markerIcon.src,
   iconRetinaUrl: markerIcon2x.src,
   shadowUrl: markerShadow.src,
@@ -23,7 +25,7 @@ const Map = ({ locations }: { locations: Restaurant[] }) => (
       url="https://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
     />
     {locations.map(location => (
-      <Marker key={`location-${location.id}`} position={[location.latitude, location.longitude]} icon={customMarkerIcon}>
+      <Marker key={`location-${location.id}`} position={[location.latitude, location.longitude]}>
         <Popup>
           <strong>{location.name}</strong>
           <p><b>Address:</b> {location.address}</p>
