@@ -18,10 +18,10 @@ I could achieve this by using a JSON file in place of a backend (like what I've 
 
 The map screen will be statically exported and hosted on a static site hosting service (eg: Github Pages).
 
-Route handlers will be used to fetch data from the backend so that this data is exported during the build process.
+~~Route handlers will be used to fetch data from the backend so that this data is exported during the build process.~~ Edit: Next.js retains the response payload from any requests sent by server components across pages so route handlers are not required.
 
 ## Consequences
 
 - The frontend will be read-only. Any create, update or delete operations will need to be made either through SQL queries or through a separate, not-yet-existent interface
-- Filtering and pagination will need to be performed within the Next.js application as statically exported route handlers cannot handle dynamic values ([Reference: Deploying: Static Exports | Next.js](https://nextjs.org/docs/app/building-your-application/deploying/static-exports#route-handlers)).
+- Filtering and pagination according to user input will need to be performed within the Next.js frontend as the backend will not be hosted.
 - The backend server will need to be running to update the data available to the frontend in the static export.
