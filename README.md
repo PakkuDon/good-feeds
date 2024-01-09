@@ -1,5 +1,7 @@
 # Good Feeds 🍽
 
+![screenshot](./doc/screenshot.png)
+
 Formerly known as Good Breads 🍞
 
 A place to find and recommend places to eat or drink.
