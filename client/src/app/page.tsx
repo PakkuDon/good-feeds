@@ -23,27 +23,26 @@ export interface DietaryOptions {
 
 async function getRestaurants(): Promise<Restaurant[]> {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_CLIENT_HOST}/good-feeds/api/restaurants`,
+    `${process.env.NEXT_BACKEND_HOST}/api/restaurants`,
   );
-  console.log(response);
   const json = await response.json();
 
   if (!response.ok) {
     throw new Error("Failed to fetch data from /api/restaurants");
   }
-  return json.data;
+  return json;
 }
 
 async function getDietaryOptions(): Promise<DietaryOptions[]> {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_CLIENT_HOST}/good-feeds/api/dietaryOptions`,
+    `${process.env.NEXT_BACKEND_HOST}/api/dietaryOptions`,
   );
   const json = await response.json();
 
   if (!response.ok) {
     throw new Error("Failed to fetch data from /api/dietaryOptions");
   }
-  return json.data;
+  return json;
 }
 
 export default async function Home() {
