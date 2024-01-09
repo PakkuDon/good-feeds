@@ -34,8 +34,8 @@ export default function MainContent({
 
   return (
     <>
-      <aside className="main-sidebar">
-        <h2>Filter options</h2>
+      <aside className="main-sidebar px-4">
+        <h2 className="font-bold">Filter options</h2>
         <ul>
           {dietaryOptions.map(({ label }) => (
             <div key={`option-${label}`}>
