@@ -24,6 +24,7 @@ export interface DietaryOptions {
 async function getRestaurants(): Promise<Restaurant[]> {
   const response = await fetch(
     `${process.env.NEXT_BACKEND_HOST}/api/restaurants`,
+    { next: { revalidate: 10 } },
   );
   const json = await response.json();
 
@@ -36,6 +37,7 @@ async function getRestaurants(): Promise<Restaurant[]> {
 async function getDietaryOptions(): Promise<DietaryOptions[]> {
   const response = await fetch(
     `${process.env.NEXT_BACKEND_HOST}/api/dietaryOptions`,
+    { next: { revalidate: 10 } },
   );
   const json = await response.json();
 
