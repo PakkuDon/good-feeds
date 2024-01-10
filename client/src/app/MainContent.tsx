@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import { DietaryOptions, Restaurant } from "./page";
+import ListView from "./ListView";
 
 const Map = dynamic(() => import("./Map"), {
   loading: () => <p>loading...</p>,
@@ -19,6 +20,7 @@ export default function MainContent({
   dietaryOptions,
 }: MainContentProps) {
   const [filters, setFilters] = useState<string[]>([]);
+  const [activeTab, setActiveTab] = useState<string>("map");
 
   const toggleFilter = (label: string) => {
     if (filters.includes(label)) {
@@ -35,6 +37,22 @@ export default function MainContent({
   return (
     <>
       <aside className="main-sidebar px-4">
+        <div>
+          <button
+            className="rounded bg-gray-800 hover:bg-gray-600 p-2 font-semibold text-sm"
+            disabled={activeTab === "map"}
+            onClick={() => setActiveTab("map")}
+          >
+            Show Map
+          </button>
+          <button
+            className="rounded bg-gray-800 hover:bg-gray-600 p-2 font-semibold text-sm"
+            disabled={activeTab === "list"}
+            onClick={() => setActiveTab("list")}
+          >
+            Show List
+          </button>
+        </div>
         <h2 className="font-bold">Filter options</h2>
         <ul>
           {dietaryOptions.map(({ label }) => (
@@ -52,7 +70,8 @@ export default function MainContent({
         </ul>
       </aside>
       <main className="main-content">
-        <Map locations={restaurantResults} />
+        {activeTab === "map" && <Map locations={restaurantResults} />}
+        {activeTab === "list" && <ListView locations={restaurantResults} />}
       </main>
     </>
   );
