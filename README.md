@@ -10,7 +10,7 @@ A place to find and recommend places to eat or drink.
 - Create database
 ```sql
 $ mysql
-source api/db/create_db.sql
+CREATE DATABASE good_feeds;
 ```
 - Configure environment variables
 ```sh
@@ -21,6 +21,11 @@ cp .env.example .env
 ```sh
 cd api
 go get .
+```
+- Run database migrations
+```sh
+cd api
+go run cmd/migrate.go
 ```
 - Run backend server
 ```sh
