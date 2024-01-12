@@ -52,11 +52,6 @@ export default async function Home() {
   const dietaryOptions = await getDietaryOptions();
 
   return (
-    <main className="main">
-      <header className="main-header px-4 pt-4">
-        <h1 className="text-2xl font-bold">Good Feeds</h1>
-      </header>
-      <MainContent restaurants={restaurants} dietaryOptions={dietaryOptions} />
-    </main>
+    <MainContent restaurants={restaurants} dietaryOptions={dietaryOptions} />
   );
 }

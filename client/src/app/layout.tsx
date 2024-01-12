@@ -15,7 +15,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <main className="main">
+          <header className="main-header px-4 pt-4">
+            <h1 className="text-2xl font-bold">Good Feeds</h1>
+          </header>
+          {children}
+        </main>
+      </body>
     </html>
   );
 }
