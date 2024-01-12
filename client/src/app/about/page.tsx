@@ -25,16 +25,16 @@ export default function About() {
         <div className="pb-4">
           <h3 className="text-lg font-bold">Where does the data come from?</h3>
           <p>
-            The restaurants shown here are restaurants that I've been to and
+            {`The restaurants shown here are restaurants that I've been to and
             would recommend. I may add other restaurants that I haven't been to
-            but have heard good things about at a later point in time.
+            but have heard good things about at a later point in time.`}
           </p>
           <p>
-            The data shown here has been copy-pasted from other sources like the
+            {`The data shown here has been copy-pasted from other sources like the
             Google and each restaurant's social media pages. This is an ad-hoc
             process so the details shown here may not be up to date. I recommend
             checking the websites listed for a given restaurant to confirm any
-            specifics.
+            specifics.`}
           </p>
           <p>
             Coordinates were a rough guess based on the URL shown in Google Maps
@@ -43,8 +43,8 @@ export default function About() {
         </div>
         <div className="pb-4">
           <h3 className="text-lg font-bold">
-            I didn't find anything that I liked. Where can I find more
-            recommendations?
+            {`I didn't find anything that I liked. Where can I find more
+            recommendations?`}
           </h3>
           <div>
             If you are looking for locations based in Victoria, Australia the
@@ -56,7 +56,7 @@ export default function About() {
                   className="text-blue-300 hover:text-blue-500 focus:text-blue-500"
                   target="_blank"
                 >
-                  Eat and drink | What's On Melbourne
+                  {`Eat and drink | What's On Melbourne`}
                 </a>
               </li>
               <li>
