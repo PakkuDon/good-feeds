@@ -53,6 +53,12 @@ export default function MainContent({
             Show List
           </button>
         </div>
+        <div>
+          <span>
+            {restaurantResults.length}{" "}
+            {restaurantResults.length === 1 ? "result" : "results"}
+          </span>
+        </div>
         <h2 className="font-bold">Filter options</h2>
         <ul>
           {dietaryOptions.map(({ label }) => (
