@@ -1,5 +1,7 @@
 # Good Feeds 🍽
 
+Frontend hosted at https://pakkudon.github.io/good-feeds/
+
 ![screenshot](./doc/screenshot.png)
 
 Formerly known as Good Breads 🍞
