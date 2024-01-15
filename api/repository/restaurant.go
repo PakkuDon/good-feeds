@@ -65,7 +65,6 @@ func GetRestaurants(database *sql.DB) ([]model.Restaurant, error) {
 			return []model.Restaurant{}, err
 		}
 		restaurant.Options = parsedOptions
-		restaurant.DietaryOptions = parsedOptions
 		restaurant.Links = links
 		restaurants = append(restaurants, restaurant)
 	}
@@ -122,7 +121,6 @@ func GetRestaurantById(database *sql.DB, restaurantId int64) (*model.Restaurant,
 		return nil, err
 	}
 	restaurant.Options = parsedOptions
-	restaurant.DietaryOptions = parsedOptions
 	restaurant.Links = links
 	return restaurant, nil
 }
