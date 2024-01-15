@@ -53,7 +53,7 @@ const ListView = ({ locations }: { locations: Restaurant[] }) => {
           </p>
           <p>{location.description}</p>
           <p>
-            <b>Dietary options:</b>{" "}
+            <b>Options:</b>{" "}
             {location.options.map((option) => option.label).join(", ") || "N/A"}
           </p>
           <ul className="list-disc list-inside">
