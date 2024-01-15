@@ -68,7 +68,7 @@ export default function MainContent({
                 <span className="capitalize">{type}</span> options
               </h2>
               {options.map((option: string) => (
-                <div>
+                <div key={`option-${option}`}>
                   <label>
                     <input
                       type="checkbox"
