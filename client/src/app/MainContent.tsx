@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
-import { RestaurantOption, Restaurant } from "./page";
+import { OptionsByType, Restaurant, RestaurantOption } from "./page";
 import ListView from "./ListView";
 
 const Map = dynamic(() => import("./Map"), {
@@ -12,7 +12,7 @@ const Map = dynamic(() => import("./Map"), {
 
 interface MainContentProps {
   restaurants: Restaurant[];
-  options: RestaurantOption[];
+  options: OptionsByType;
 }
 
 export default function MainContent({
@@ -61,18 +61,24 @@ export default function MainContent({
             {restaurantResults.length === 1 ? "result" : "results"}
           </span>
         </div>
-        <h2 className="font-bold">Filter options</h2>
         <ul>
-          {options.map(({ label }) => (
-            <div key={`option-${label}`}>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={filters.includes(label)}
-                  onChange={() => toggleFilter(label)}
-                />{" "}
-                {label}
-              </label>
+          {Object.entries(options).map(([type, options]) => (
+            <div key={`group-${type}`} className="pb-4">
+              <h2 className="font-bold">
+                <span className="capitalize">{type}</span> options
+              </h2>
+              {options.map((option: string) => (
+                <div>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={filters.includes(option)}
+                      onChange={() => toggleFilter(option)}
+                    />{" "}
+                    {option}
+                  </label>
+                </div>
+              ))}
             </div>
           ))}
         </ul>

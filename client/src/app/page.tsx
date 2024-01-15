@@ -22,6 +22,10 @@ export interface RestaurantOption {
   type: string;
 }
 
+export interface OptionsByType {
+  [index: string]: string[];
+}
+
 async function getRestaurants(): Promise<Restaurant[]> {
   const response = await fetch(
     `${process.env.NEXT_BACKEND_HOST}/api/restaurants`,
@@ -50,6 +54,13 @@ async function getOptions(): Promise<RestaurantOption[]> {
 export default async function Home() {
   const restaurants = await getRestaurants();
   const options = await getOptions();
+  const optionsByGroup: OptionsByType = {};
+  options.forEach((option) => {
+    if (!optionsByGroup[option.type]) {
+      optionsByGroup[option.type] = [];
+    }
+    optionsByGroup[option.type].push(option.label);
+  });
 
-  return <MainContent restaurants={restaurants} options={options} />;
+  return <MainContent restaurants={restaurants} options={optionsByGroup} />;
 }
