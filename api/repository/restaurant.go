@@ -22,10 +22,10 @@ func GetRestaurants(database *sql.DB) ([]model.Restaurant, error) {
 			restaurants.description,
 			restaurants.added_at,
 			restaurants.updated_at,
-			JSON_ARRAYAGG(dietary_options.label) as dietary_options
+			JSON_ARRAYAGG(options.label) as options
 		FROM restaurants
-		LEFT JOIN restaurant_dietary_options ON restaurants.id = restaurant_dietary_options.restaurant_id
-		LEFT JOIN dietary_options ON restaurant_dietary_options.dietary_option_id = dietary_options.id
+		LEFT JOIN restaurant_options ON restaurants.id = restaurant_options.restaurant_id
+		LEFT JOIN options ON restaurant_options.option_id = options.id
 		GROUP BY restaurants.id
 	`)
 
@@ -64,6 +64,7 @@ func GetRestaurants(database *sql.DB) ([]model.Restaurant, error) {
 		if err != nil {
 			return []model.Restaurant{}, err
 		}
+		restaurant.Options = parsedOptions
 		restaurant.DietaryOptions = parsedOptions
 		restaurant.Links = links
 		restaurants = append(restaurants, restaurant)
@@ -84,10 +85,10 @@ func GetRestaurantById(database *sql.DB, restaurantId int64) (*model.Restaurant,
 			restaurants.description,
 			restaurants.added_at,
 			restaurants.updated_at,
-			JSON_ARRAYAGG(dietary_options.label) as dietary_options
+			JSON_ARRAYAGG(options.label) as options
 		FROM restaurants
-		LEFT JOIN restaurant_dietary_options ON restaurants.id = restaurant_dietary_options.restaurant_id
-		LEFT JOIN dietary_options ON restaurant_dietary_options.dietary_option_id = dietary_options.id
+		LEFT JOIN restaurant_options ON restaurants.id = restaurant_options.restaurant_id
+		LEFT JOIN options ON restaurant_options.option_id = options.id
 		WHERE restaurants.id = ?
 		GROUP BY restaurants.id
 	`, restaurantId)
@@ -120,6 +121,7 @@ func GetRestaurantById(database *sql.DB, restaurantId int64) (*model.Restaurant,
 	if err != nil {
 		return nil, err
 	}
+	restaurant.Options = parsedOptions
 	restaurant.DietaryOptions = parsedOptions
 	restaurant.Links = links
 	return restaurant, nil
