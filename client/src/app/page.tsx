@@ -11,7 +11,7 @@ export interface Restaurant {
     label: string;
     url: string;
   }[];
-  dietaryOptions: RestaurantOption[];
+  options: RestaurantOption[];
   addedAt: string;
   updatedAt: string;
 }
@@ -20,11 +20,6 @@ export interface RestaurantOption {
   id: number;
   label: string;
   type: string;
-}
-
-export interface DietaryOptions {
-  id: number;
-  label: string;
 }
 
 async function getRestaurants(): Promise<Restaurant[]> {
@@ -40,24 +35,21 @@ async function getRestaurants(): Promise<Restaurant[]> {
   return json;
 }
 
-async function getDietaryOptions(): Promise<DietaryOptions[]> {
-  const response = await fetch(
-    `${process.env.NEXT_BACKEND_HOST}/api/dietaryOptions`,
-    { next: { revalidate: 10 } },
-  );
+async function getOptions(): Promise<RestaurantOption[]> {
+  const response = await fetch(`${process.env.NEXT_BACKEND_HOST}/api/options`, {
+    next: { revalidate: 10 },
+  });
   const json = await response.json();
 
   if (!response.ok) {
-    throw new Error("Failed to fetch data from /api/dietaryOptions");
+    throw new Error("Failed to fetch data from /api/options");
   }
   return json;
 }
 
 export default async function Home() {
   const restaurants = await getRestaurants();
-  const dietaryOptions = await getDietaryOptions();
+  const options = await getOptions();
 
-  return (
-    <MainContent restaurants={restaurants} dietaryOptions={dietaryOptions} />
-  );
+  return <MainContent restaurants={restaurants} options={options} />;
 }

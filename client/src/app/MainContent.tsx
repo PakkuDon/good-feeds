@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
-import { DietaryOptions, Restaurant } from "./page";
+import { RestaurantOption, Restaurant } from "./page";
 import ListView from "./ListView";
 
 const Map = dynamic(() => import("./Map"), {
@@ -12,12 +12,12 @@ const Map = dynamic(() => import("./Map"), {
 
 interface MainContentProps {
   restaurants: Restaurant[];
-  dietaryOptions: DietaryOptions[];
+  options: RestaurantOption[];
 }
 
 export default function MainContent({
   restaurants,
-  dietaryOptions,
+  options,
 }: MainContentProps) {
   const [filters, setFilters] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<string>("map");
@@ -32,7 +32,7 @@ export default function MainContent({
 
   const restaurantResults = restaurants.filter((restaurant) =>
     filters.every((option) =>
-      restaurant.dietaryOptions.map((option) => option.label).includes(option),
+      restaurant.options.map((option) => option.label).includes(option),
     ),
   );
 
@@ -63,7 +63,7 @@ export default function MainContent({
         </div>
         <h2 className="font-bold">Filter options</h2>
         <ul>
-          {dietaryOptions.map(({ label }) => (
+          {options.map(({ label }) => (
             <div key={`option-${label}`}>
               <label>
                 <input
