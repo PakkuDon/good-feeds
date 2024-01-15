@@ -22,7 +22,7 @@ func GetRestaurants(database *sql.DB) ([]model.Restaurant, error) {
 			restaurants.description,
 			restaurants.added_at,
 			restaurants.updated_at,
-			JSON_ARRAYAGG(options.label) as options
+			JSON_ARRAYAGG(JSON_OBJECT("label", options.label, "type", options.type)) as options
 		FROM restaurants
 		LEFT JOIN restaurant_options ON restaurants.id = restaurant_options.restaurant_id
 		LEFT JOIN options ON restaurant_options.option_id = options.id
@@ -40,7 +40,7 @@ func GetRestaurants(database *sql.DB) ([]model.Restaurant, error) {
 		optionsJson := []byte{}
 		addedAtByteArray := []byte{}
 		updatedAtByteArray := []byte{}
-		parsedOptions := []string{}
+		parsedOptions := []model.Option{}
 		if err := rows.Scan(
 			&restaurant.ID,
 			&restaurant.Name,
@@ -85,7 +85,7 @@ func GetRestaurantById(database *sql.DB, restaurantId int64) (*model.Restaurant,
 			restaurants.description,
 			restaurants.added_at,
 			restaurants.updated_at,
-			JSON_ARRAYAGG(options.label) as options
+			JSON_ARRAYAGG(JSON_OBJECT("label", options.label, "type", options.type)) as options
 		FROM restaurants
 		LEFT JOIN restaurant_options ON restaurants.id = restaurant_options.restaurant_id
 		LEFT JOIN options ON restaurant_options.option_id = options.id
@@ -97,7 +97,7 @@ func GetRestaurantById(database *sql.DB, restaurantId int64) (*model.Restaurant,
 	optionsJson := []byte{}
 	addedAtByteArray := []byte{}
 	updatedAtByteArray := []byte{}
-	parsedOptions := []string{}
+	parsedOptions := []model.Option{}
 	if err := row.Scan(
 		&restaurant.ID,
 		&restaurant.Name,

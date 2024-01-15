@@ -40,7 +40,8 @@ const Map = ({ locations }: { locations: Restaurant[] }) => (
           <p>{location.description}</p>
           <p>
             <b>Dietary options:</b>{" "}
-            {location.dietaryOptions.join(", ") || "N/A"}
+            {location.dietaryOptions.map((option) => option.label).join(", ") ||
+              "N/A"}
           </p>
           <ul className="list-disc list-inside">
             {location.links.map((link) => (

@@ -31,7 +31,9 @@ export default function MainContent({
   };
 
   const restaurantResults = restaurants.filter((restaurant) =>
-    filters.every((option) => restaurant.dietaryOptions.includes(option)),
+    filters.every((option) =>
+      restaurant.dietaryOptions.map((option) => option.label).includes(option),
+    ),
   );
 
   return (

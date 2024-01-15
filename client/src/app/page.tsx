@@ -11,9 +11,15 @@ export interface Restaurant {
     label: string;
     url: string;
   }[];
-  dietaryOptions: string[];
+  dietaryOptions: RestaurantOption[];
   addedAt: string;
   updatedAt: string;
+}
+
+export interface RestaurantOption {
+  id: number;
+  label: string;
+  type: string;
 }
 
 export interface DietaryOptions {
