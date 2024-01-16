@@ -13,6 +13,8 @@ const nextConfig = {
   output: "export",
   basePath,
   distDir,
+  // Force trailing slashes to prevent 404 when accessing index route on Github Pages
+  trailingSlash: true,
 }
 
 module.exports = nextConfig
