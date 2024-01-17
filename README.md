@@ -6,40 +6,49 @@ Frontend hosted at https://pakkudon.github.io/good-feeds/
 
 Formerly known as Good Breads 🍞
 
-A place to find and recommend places to eat or drink.
+A site to find places to eat or drink at around Melbourne, VIC Australia.
 
 ## Development instructions
-- Create database
+### Prerequisites
+To run this locally you will need the following:
+- Go 1.21
+- A MySQL server
+- Node.js v18 or higher
+
+### Backend server setup
+Create database
 ```sql
 $ mysql
 CREATE DATABASE good_feeds;
 ```
-- Configure environment variables
+Configure environment variables
 ```sh
 cp .env.example .env
-# Edit .env file
+# Edit .env file to set database URL and other options
 ```
-- Install dependencies for Go server
+Install dependencies for Go server
 ```sh
 cd api
 go get .
 ```
-- Run database migrations
+Run database migrations
 ```sh
 cd api
 go run cmd/migrate.go
 ```
-- Run backend server
+Run backend server
 ```sh
 cd api
 go run main.go
 ```
-- Install dependencies for frontend
+
+### Frontend setup
+Install dependencies for frontend
 ```sh
 cd client
 npm i
 ```
-- Start frontend
+Start frontend
 ```sh
 npm run dev
 ```
