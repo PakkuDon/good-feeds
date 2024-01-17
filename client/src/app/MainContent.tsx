@@ -21,6 +21,8 @@ export default function MainContent({
 }: MainContentProps) {
   const [filters, setFilters] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<string>("map");
+  const [includeVisited, setIncludeVisited] = useState<boolean>(true);
+  const [includeUnvisited, setIncludeUnvisited] = useState<boolean>(true);
 
   const toggleFilter = (label: string) => {
     if (filters.includes(label)) {
@@ -30,10 +32,13 @@ export default function MainContent({
     }
   };
 
-  const restaurantResults = restaurants.filter((restaurant) =>
-    filters.every((option) =>
-      restaurant.options.map((option) => option.label).includes(option),
-    ),
+  const restaurantResults = restaurants.filter(
+    (restaurant) =>
+      ((includeVisited && restaurant.visited) ||
+        (includeUnvisited && !restaurant.visited)) &&
+      filters.every((option) =>
+        restaurant.options.map((option) => option.label).includes(option),
+      ),
   );
 
   return (
@@ -60,6 +65,29 @@ export default function MainContent({
             {restaurantResults.length}{" "}
             {restaurantResults.length === 1 ? "result" : "results"}
           </span>
+        </div>
+        <div className="pb-4">
+          <div>
+            <h2 className="font-bold">Filters</h2>
+            <label>
+              <input
+                type="checkbox"
+                checked={includeVisited}
+                onChange={() => setIncludeVisited(!includeVisited)}
+              />{" "}
+              Show visited
+            </label>
+          </div>
+          <div>
+            <label>
+              <input
+                type="checkbox"
+                checked={includeUnvisited}
+                onChange={() => setIncludeUnvisited(!includeUnvisited)}
+              />{" "}
+              Show unvisited
+            </label>
+          </div>
         </div>
         <ul>
           {Object.entries(options).map(([type, options]) => (
