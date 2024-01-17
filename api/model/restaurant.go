@@ -19,4 +19,5 @@ type Restaurant struct {
 	Links       []Link    `json:"links"`
 	AddedAt     time.Time `json:"addedAt"`
 	UpdatedAt   time.Time `json:"updatedAt"`
+	Visited     bool      `json:"visited"`
 }
