@@ -28,14 +28,26 @@ body {
 }
 
 .main {
-  height: 100%;
+  min-height: 100%;
   display: grid;
-  grid-template-rows: min-content 1fr;
-  grid-template-columns: 220px 1fr;
   grid-gap: 5px;
+  grid-template-rows: min-content min-content 1fr;
+  grid-template-columns: 1fr;
   grid-template-areas:
-    "header header"
-    "sidebar content";
+    "header"
+    "sidebar"
+    "content";
+}
+
+@media (min-width: 500px) {
+  .main {
+    height: 100%;
+    grid-template-rows: min-content 1fr;
+    grid-template-columns: 220px 1fr;
+    grid-template-areas:
+      "header header"
+      "sidebar content";
+  }
 }
 
 .main-header {
