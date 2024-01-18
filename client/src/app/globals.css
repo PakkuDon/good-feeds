@@ -44,6 +44,8 @@ body {
 
 .main-sidebar {
   grid-area: sidebar;
+  max-height: 100%;
+  overflow-y: auto;
 }
 
 .main-content {
