@@ -19,6 +19,7 @@ export default function MainContent({
   restaurants,
   options,
 }: MainContentProps) {
+  const [showFilters, setShowFilters] = useState<boolean>(true);
   const [filters, setFilters] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<string>("map");
   const [includeVisited, setIncludeVisited] = useState<boolean>(true);
@@ -60,56 +61,70 @@ export default function MainContent({
             Show List
           </button>
         </div>
-        <div>
-          <span>
-            {restaurantResults.length}{" "}
-            {restaurantResults.length === 1 ? "result" : "results"}
-          </span>
-        </div>
         <div className="pb-4">
-          <div>
-            <h2 className="font-bold">Filters</h2>
-            <label>
-              <input
-                type="checkbox"
-                checked={includeVisited}
-                onChange={() => setIncludeVisited(!includeVisited)}
-              />{" "}
-              Show visited
-            </label>
-          </div>
-          <div>
-            <label>
-              <input
-                type="checkbox"
-                checked={includeUnvisited}
-                onChange={() => setIncludeUnvisited(!includeUnvisited)}
-              />{" "}
-              Show unvisited
-            </label>
-          </div>
+          <label>
+            <input
+              type="checkbox"
+              checked={showFilters}
+              onChange={() => setShowFilters(!showFilters)}
+            />{" "}
+            Show filters
+          </label>
         </div>
-        <ul>
-          {Object.entries(options).map(([type, options]) => (
-            <div key={`group-${type}`} className="pb-4">
-              <h2 className="font-bold">
-                <span className="capitalize">{type}</span> options
-              </h2>
-              {options.map((option: string) => (
-                <div key={`option-${option}`}>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={filters.includes(option)}
-                      onChange={() => toggleFilter(option)}
-                    />{" "}
-                    {option}
-                  </label>
+        {showFilters && (
+          <>
+            <div>
+              <span>
+                {restaurantResults.length}{" "}
+                {restaurantResults.length === 1 ? "result" : "results"}
+              </span>
+            </div>
+            <div className="pb-4">
+              <div>
+                <h2 className="font-bold">Filters</h2>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={includeVisited}
+                    onChange={() => setIncludeVisited(!includeVisited)}
+                  />{" "}
+                  Show visited
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={includeUnvisited}
+                    onChange={() => setIncludeUnvisited(!includeUnvisited)}
+                  />{" "}
+                  Show unvisited
+                </label>
+              </div>
+            </div>
+            <ul>
+              {Object.entries(options).map(([type, options]) => (
+                <div key={`group-${type}`} className="pb-4">
+                  <h2 className="font-bold">
+                    <span className="capitalize">{type}</span> options
+                  </h2>
+                  {options.map((option: string) => (
+                    <div key={`option-${option}`}>
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={filters.includes(option)}
+                          onChange={() => toggleFilter(option)}
+                        />{" "}
+                        {option}
+                      </label>
+                    </div>
+                  ))}
                 </div>
               ))}
-            </div>
-          ))}
-        </ul>
+            </ul>
+          </>
+        )}
       </aside>
       <main className="main-content">
         {activeTab === "map" && <Map locations={restaurantResults} />}
