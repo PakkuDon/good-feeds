@@ -43,8 +43,8 @@ export default function MainContent({
   );
 
   return (
-    <>
-      <aside className="main-sidebar px-4">
+    <div className="grid sm:grid-cols-[200px_1fr] sm:grid-rows-1 grid-rows-[min-content_1fr]">
+      <aside className="max-h-full px-4">
         <div>
           <button
             className="rounded bg-gray-800 hover:bg-gray-600 p-2 font-semibold text-sm"
@@ -130,6 +130,6 @@ export default function MainContent({
         {activeTab === "map" && <Map locations={restaurantResults} />}
         {activeTab === "list" && <ListView locations={restaurantResults} />}
       </main>
-    </>
+    </div>
   );
 }

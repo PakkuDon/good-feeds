@@ -2,15 +2,15 @@ import Link from "next/link";
 
 export default function About() {
   return (
-    <>
-      <aside className="main-sidebar px-4 pt-4">
+    <div>
+      <div className="main-sidebar px-4 pt-4">
         <Link
           href="/"
           className="text-blue-300 hover:text-blue-500 focus:text-blue-500"
         >
           Back to index
         </Link>
-      </aside>
+      </div>
       <div className="px-4 pt-4">
         <div className="pb-4">
           <h2 className="text-xl font-bold mb-4">About Good Feeds</h2>
@@ -81,6 +81,6 @@ export default function About() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

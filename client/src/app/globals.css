@@ -19,41 +19,10 @@ body {
   height: 100vh;
 }
 
-.main {
+.appContainer {
   min-height: 100%;
   display: grid;
-  grid-gap: 5px;
-  grid-template-rows: min-content min-content 1fr;
-  grid-template-columns: 1fr;
-  grid-template-areas:
-    "header"
-    "sidebar"
-    "content";
-}
-
-@media (min-width: 500px) {
-  .main {
-    height: 100%;
-    grid-template-rows: min-content 1fr;
-    grid-template-columns: 220px 1fr;
-    grid-template-areas:
-      "header header"
-      "sidebar content";
-  }
-}
-
-.main-header {
-  grid-area: header;
-}
-
-.main-sidebar {
-  grid-area: sidebar;
-  max-height: 100%;
-  overflow-y: auto;
-}
-
-.main-content {
-  grid-area: content;
+  grid-template-rows: min-content 1fr;
 }
 
 .leaflet-container {

@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main className="main">
+        <div className="appContainer">
           <header className="main-header px-4 pt-4 flex justify-between flex-row">
             <h1 className="text-2xl font-bold">Good Feeds</h1>
             <Link
@@ -28,7 +28,7 @@ export default function RootLayout({
             </Link>
           </header>
           {children}
-        </main>
+        </div>
       </body>
     </html>
   );
