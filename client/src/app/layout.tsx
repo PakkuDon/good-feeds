@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/good-feeds/favicon.ico" sizes="any" />
       </head>
       <body className={`${inter.className} h-screen text-white bg-black`}>
         <div className="min-h-full grid grid-rows-[min-content_1fr]">
