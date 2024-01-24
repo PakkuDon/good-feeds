@@ -8,6 +8,10 @@ Formerly known as Good Breads 🍞
 
 A site to find places to eat or drink at around Melbourne, VIC Australia.
 
+## Updates
+
+See [CHANGELOG.md](./CHANGELOG.md)
+
 ## Development instructions
 ### Prerequisites
 To run this locally you will need the following:
