@@ -6,3 +6,4 @@
 * [4. Build frontend in Next.js](0004-build-frontend-in-nextjs.md)
 * [5. Statically generate map screen](0005-statically-generate-map-screen.md)
 * [6. Generalise restaurant options table](0006-generalise-restaurant-options-table.md)
+* [7. Keep a changelog](0007-keep-a-changelog.md)
