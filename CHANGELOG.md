@@ -7,11 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.x.x] - 2024-??-??
+
+- 
+
 ## [1.8.1] - 2024-01-25
 
 ### Added
 
 - Add changelog
+
+### Fixed
+
+- Fix issue where map cannot be viewed on small screens
 
 ## [1.8.0] - 2024-01-23
 
