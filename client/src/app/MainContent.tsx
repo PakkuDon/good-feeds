@@ -42,19 +42,31 @@ export default function MainContent({
       ),
   );
 
+  const selectableButtonClasses =
+    "rounded bg-gray-800 hover:bg-gray-600 p-2 font-semibold text-sm";
+  const activeButtonClasses = "rounded bg-blue-500 p-2 font-semibold text-sm";
+
   return (
     <div className="grid sm:grid-cols-[210px_1fr] sm:grid-rows-1 grid-rows-[min-content_80vh]">
       <aside className="max-h-full px-4">
         <div>
           <button
-            className="rounded bg-gray-800 hover:bg-gray-600 p-2 font-semibold text-sm"
+            className={
+              activeTab === "map"
+                ? activeButtonClasses
+                : selectableButtonClasses
+            }
             disabled={activeTab === "map"}
             onClick={() => setActiveTab("map")}
           >
             Show Map
           </button>
           <button
-            className="rounded bg-gray-800 hover:bg-gray-600 p-2 font-semibold text-sm"
+            className={
+              activeTab === "list"
+                ? activeButtonClasses
+                : selectableButtonClasses
+            }
             disabled={activeTab === "list"}
             onClick={() => setActiveTab("list")}
           >
