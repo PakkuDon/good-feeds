@@ -43,7 +43,7 @@ export default function MainContent({
   );
 
   return (
-    <div className="grid sm:grid-cols-[200px_1fr] sm:grid-rows-1 grid-rows-[min-content_80vh]">
+    <div className="grid sm:grid-cols-[210px_1fr] sm:grid-rows-1 grid-rows-[min-content_80vh]">
       <aside className="max-h-full px-4">
         <div>
           <button
