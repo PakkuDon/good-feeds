@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.x.x] - 2024-01-xx
+## [1.8.3] - 2024-01-31
 
-- 
+### Updated
+
+- Expand sidebar so that map / list view buttons are on same row
+- Use different colours to differentiate between selected view
+- Add button to show or hide individual filter groups
 
 ## [1.8.2] - 2024-01-25
 
