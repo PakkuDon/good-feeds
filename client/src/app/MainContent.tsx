@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import { OptionsByType, Restaurant, RestaurantOption } from "./page";
 import ListView from "./ListView";
+import CollapsibleSection from "@/components/CollapsibleSection";
 
 const Map = dynamic(() => import("./Map"), {
   loading: () => <p>loading...</p>,
@@ -116,10 +117,10 @@ export default function MainContent({
             </div>
             <ul>
               {Object.entries(options).map(([type, options]) => (
-                <div key={`group-${type}`} className="pb-4">
-                  <h2 className="font-bold">
-                    <span className="capitalize">{type}</span> options
-                  </h2>
+                <CollapsibleSection
+                  key={`group-${type}`}
+                  heading={`${type} options`}
+                >
                   {options.map((option: string) => (
                     <div key={`option-${option}`}>
                       <label>
@@ -132,7 +133,7 @@ export default function MainContent({
                       </label>
                     </div>
                   ))}
-                </div>
+                </CollapsibleSection>
               ))}
             </ul>
           </>
