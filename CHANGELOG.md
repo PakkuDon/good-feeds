@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Display clusters when there are multiple markers in close proximity to each other
+
 ## [1.8.3] - 2024-01-31
 
 ### Updated
