@@ -6,3 +6,7 @@
 .leaflet-container {
   height: 100%;
 }
+
+a {
+  @apply text-blue-300 hover:text-blue-500 focus:text-blue-500;
+}

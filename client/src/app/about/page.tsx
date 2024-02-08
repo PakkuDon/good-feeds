@@ -4,12 +4,7 @@ export default function About() {
   return (
     <div>
       <div className="main-sidebar px-4 pt-4">
-        <Link
-          href="/"
-          className="text-blue-300 hover:text-blue-500 focus:text-blue-500"
-        >
-          Back to index
-        </Link>
+        <Link href="/">Back to index</Link>
       </div>
       <div className="px-4 pt-4">
         <div className="pb-4">
@@ -53,7 +48,6 @@ export default function About() {
               <li>
                 <a
                   href="https://whatson.melbourne.vic.gov.au/eat-and-drink"
-                  className="text-blue-300 hover:text-blue-500 focus:text-blue-500"
                   target="_blank"
                 >
                   {`Eat and drink | What's On Melbourne`}
@@ -62,18 +56,13 @@ export default function About() {
               <li>
                 <a
                   href="https://www.broadsheet.com.au/melbourne/food-and-drink"
-                  className="text-blue-300 hover:text-blue-500 focus:text-blue-500"
                   target="_blank"
                 >
                   Melbourne Food and drink | Broadsheet
                 </a>
               </li>
               <li>
-                <a
-                  href="https://www.opentable.com.au/"
-                  className="text-blue-300 hover:text-blue-500 focus:text-blue-500"
-                  target="_blank"
-                >
+                <a href="https://www.opentable.com.au/" target="_blank">
                   OpenTable
                 </a>
               </li>

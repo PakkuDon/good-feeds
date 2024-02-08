@@ -59,11 +59,7 @@ const ListView = ({ locations }: { locations: Restaurant[] }) => {
           <ul className="list-disc list-inside">
             {location.links.map((link) => (
               <li key={`${location.id}-${link.label}`}>
-                <a
-                  href={link.url}
-                  target="_blank"
-                  className="text-blue-300 hover:text-blue-500 focus:text-blue-500"
-                >
+                <a href={link.url} target="_blank">
                   {link.label}
                 </a>
               </li>
