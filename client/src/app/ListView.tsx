@@ -56,7 +56,7 @@ const ListView = ({ locations }: { locations: Restaurant[] }) => {
             <b>Options:</b>{" "}
             {location.options.map((option) => option.label).join(", ") || "N/A"}
           </p>
-          <ul className="list-disc list-inside">
+          <ul>
             {location.links.map((link) => (
               <li key={`${location.id}-${link.label}`}>
                 <a href={link.url} target="_blank">

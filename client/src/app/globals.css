@@ -22,3 +22,7 @@ h2 {
 h3 {
   @apply text-lg font-bold;
 }
+
+ul {
+  @apply list-disc list-inside;
+}
