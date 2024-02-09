@@ -1,2 +1,5 @@
 .env
 node_modules
+
+# Seed file
+api/db/seed_db.sql
