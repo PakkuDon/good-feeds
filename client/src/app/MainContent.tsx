@@ -94,7 +94,7 @@ export default function MainContent({
             </div>
             <div className="pb-4">
               <div>
-                <h2>Filters</h2>
+                <div className="font-bold text">Filters</div>
                 <label>
                   <input
                     type="checkbox"
