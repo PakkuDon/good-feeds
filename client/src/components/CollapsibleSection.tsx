@@ -11,9 +11,9 @@ const CollapsibleSection = ({ children, heading }: CollapsibleSectionProps) => {
   return (
     <div className="pb-4">
       <header className="flex justify-between">
-        <h2 className="font-bold">
+        <div className="font-bold text">
           <span className="capitalize">{heading}</span>
-        </h2>
+        </div>
         {visible ? (
           <button
             className="rounded bg-gray-800 hover:bg-gray-600 px-2 font-semibold text-sm"

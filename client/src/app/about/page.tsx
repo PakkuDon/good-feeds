@@ -8,8 +8,8 @@ export default function About() {
       </div>
       <div className="px-4 pt-4">
         <div className="pb-4">
-          <h2 className="text-xl font-bold mb-4">About Good Feeds</h2>
-          <h3 className="text-lg font-bold">What is this?</h3>
+          <h2>About Good Feeds</h2>
+          <h3>What is this?</h3>
           <p>
             This is a site to find restaurants, cafes and other eateries based
             around Melbourne, Victoria, Australia. I built this to try and make
@@ -18,7 +18,7 @@ export default function About() {
           </p>
         </div>
         <div className="pb-4">
-          <h3 className="text-lg font-bold">Where does the data come from?</h3>
+          <h3>Where does the data come from?</h3>
           <p>
             {`The restaurants shown here are restaurants that I've been to and
             would recommend. I may add other restaurants that I haven't been to
@@ -37,7 +37,7 @@ export default function About() {
           </p>
         </div>
         <div className="pb-4">
-          <h3 className="text-lg font-bold">
+          <h3>
             {`I didn't find anything that I liked. Where can I find more
             recommendations?`}
           </h3>
