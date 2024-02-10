@@ -23,11 +23,23 @@ func GetRestaurants(database *sql.DB) ([]model.Restaurant, error) {
 			restaurants.visited,
 			restaurants.added_at,
 			restaurants.updated_at,
-			JSON_ARRAYAGG(JSON_OBJECT("label", options.label, "type", options.type)) as options
+			(
+				SELECT JSON_ARRAYAGG(
+					JSON_OBJECT("label", options.label, "type", options.type)
+				)
+				FROM options
+				LEFT JOIN restaurant_options ON restaurant_options.option_id = options.id
+				WHERE restaurant_options.restaurant_id = restaurants.id
+			) AS options,
+			(
+				SELECT JSON_ARRAYAGG(
+					JSON_OBJECT("label", restaurant_links.label, "url", restaurant_links.url)
+				)
+				FROM restaurant_links
+				WHERE restaurant_id = restaurants.id
+				GROUP BY restaurant_id
+			) AS links
 		FROM restaurants
-		LEFT JOIN restaurant_options ON restaurants.id = restaurant_options.restaurant_id
-		LEFT JOIN options ON restaurant_options.option_id = options.id
-		GROUP BY restaurants.id
 	`)
 
 	if err != nil {
@@ -39,9 +51,11 @@ func GetRestaurants(database *sql.DB) ([]model.Restaurant, error) {
 	for rows.Next() {
 		restaurant := model.Restaurant{}
 		optionsJson := []byte{}
+		linksJson := []byte{}
 		addedAtByteArray := []byte{}
 		updatedAtByteArray := []byte{}
 		parsedOptions := []model.Option{}
+		parsedLinks := []model.Link{}
 		if err := rows.Scan(
 			&restaurant.ID,
 			&restaurant.Name,
@@ -54,6 +68,7 @@ func GetRestaurants(database *sql.DB) ([]model.Restaurant, error) {
 			&addedAtByteArray,
 			&updatedAtByteArray,
 			&optionsJson,
+			&linksJson,
 		); err != nil {
 			return []model.Restaurant{}, err
 		}
@@ -62,12 +77,9 @@ func GetRestaurants(database *sql.DB) ([]model.Restaurant, error) {
 		restaurant.UpdatedAt, _ = time.Parse(time.DateTime, string(updatedAtByteArray))
 
 		_ = json.Unmarshal([]byte(optionsJson), &parsedOptions)
-		links, err := GetLinksForRestaurant(database, restaurant.ID)
-		if err != nil {
-			return []model.Restaurant{}, err
-		}
+		_ = json.Unmarshal([]byte(linksJson), &parsedLinks)
 		restaurant.Options = parsedOptions
-		restaurant.Links = links
+		restaurant.Links = parsedLinks
 		restaurants = append(restaurants, restaurant)
 	}
 
@@ -87,19 +99,33 @@ func GetRestaurantById(database *sql.DB, restaurantId int64) (*model.Restaurant,
 			restaurants.visited,
 			restaurants.added_at,
 			restaurants.updated_at,
-			JSON_ARRAYAGG(JSON_OBJECT("label", options.label, "type", options.type)) as options
+			(
+				SELECT JSON_ARRAYAGG(
+					JSON_OBJECT("label", options.label, "type", options.type)
+				)
+				FROM options
+				LEFT JOIN restaurant_options ON restaurant_options.option_id = options.id
+				WHERE restaurant_options.restaurant_id = restaurants.id
+			) AS options,
+			(
+				SELECT JSON_ARRAYAGG(
+					JSON_OBJECT("label", restaurant_links.label, "url", restaurant_links.url)
+				)
+				FROM restaurant_links
+				WHERE restaurant_id = restaurants.id
+				GROUP BY restaurant_id
+			) AS links
 		FROM restaurants
-		LEFT JOIN restaurant_options ON restaurants.id = restaurant_options.restaurant_id
-		LEFT JOIN options ON restaurant_options.option_id = options.id
 		WHERE restaurants.id = ?
-		GROUP BY restaurants.id
 	`, restaurantId)
 
 	restaurant := &model.Restaurant{}
 	optionsJson := []byte{}
+	linksJson := []byte{}
 	addedAtByteArray := []byte{}
 	updatedAtByteArray := []byte{}
 	parsedOptions := []model.Option{}
+	parsedLinks := []model.Link{}
 	if err := row.Scan(
 		&restaurant.ID,
 		&restaurant.Name,
@@ -112,6 +138,7 @@ func GetRestaurantById(database *sql.DB, restaurantId int64) (*model.Restaurant,
 		&addedAtByteArray,
 		&updatedAtByteArray,
 		&optionsJson,
+		&linksJson,
 	); err != nil {
 		return nil, err
 	}
@@ -120,36 +147,10 @@ func GetRestaurantById(database *sql.DB, restaurantId int64) (*model.Restaurant,
 	restaurant.UpdatedAt, _ = time.Parse(time.DateTime, string(updatedAtByteArray))
 
 	_ = json.Unmarshal([]byte(optionsJson), &parsedOptions)
-	links, err := GetLinksForRestaurant(database, restaurant.ID)
-	if err != nil {
-		return nil, err
-	}
+	_ = json.Unmarshal([]byte(linksJson), &parsedLinks)
 	restaurant.Options = parsedOptions
-	restaurant.Links = links
+	restaurant.Links = parsedLinks
 	return restaurant, nil
-}
-
-func GetLinksForRestaurant(database *sql.DB, restaurantId int64) ([]model.Link, error) {
-	row := database.QueryRow(`
-		SELECT JSON_ARRAYAGG(JSON_OBJECT("label", restaurant_links.label, "url", restaurant_links.url)) as links
-		FROM restaurant_links
-		WHERE restaurant_id = ?
-		GROUP BY restaurant_id
-	`, restaurantId)
-
-	links := []model.Link{}
-	linksJson := []byte{}
-	if err := row.Scan(
-		&linksJson,
-	); err != nil {
-		if err.Error() == "sql: no rows in result set" {
-			return []model.Link{}, nil
-		}
-		return nil, err
-	}
-
-	_ = json.Unmarshal(linksJson, &links)
-	return links, nil
 }
 
 func InsertRestaurant(database *sql.DB, restaurant *model.Restaurant) error {
