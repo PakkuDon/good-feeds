@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.9.1]
+
+### Added
+
+- Add Google Maps links to restaurants
+
 ## [1.9.0]
 
 ### Added
