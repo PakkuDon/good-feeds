@@ -29,7 +29,7 @@ const ListView = ({ locations }: { locations: Restaurant[] }) => {
 
   return (
     <>
-      <div className="pb-4">
+      <div className="px-4 pb-4">
         <label htmlFor="sortOrder">Order results by: </label>
         <select
           id="sortOrder"
@@ -43,7 +43,7 @@ const ListView = ({ locations }: { locations: Restaurant[] }) => {
         </select>
       </div>
       {sortedLocations.map((location) => (
-        <div key={`location-${location.id}`} className="pb-4 border-b-2">
+        <div key={`location-${location.id}`} className="px-4 pb-4 border-b-2">
           <strong>{location.name}</strong>
           <div className="text-xs text-gray-300">
             Listing updated at {new Date(location.updatedAt).toDateString()}
