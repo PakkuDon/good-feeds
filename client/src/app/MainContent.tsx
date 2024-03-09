@@ -16,10 +16,18 @@ interface MainContentProps {
   options: OptionsByType;
 }
 
+// List taken from api/db/migrations/11_add_restaurant_status.up.sql
+// We could retrieve this from the backend but these values are not expected
+// to change often so it's hard-coded here for convenience
+const statuses = ["Operational", "Temporarily closed", "Permanently closed"];
+
 export default function MainContent({
   restaurants,
   options,
 }: MainContentProps) {
+  const [selectedStatuses, setSelectedStatuses] = useState<string[]>([
+    statuses[0],
+  ]);
   const [showFilters, setShowFilters] = useState<boolean>(true);
   const [filters, setFilters] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<string>("map");
@@ -34,13 +42,24 @@ export default function MainContent({
     }
   };
 
+  const toggleStatusFilter = (status: string) => {
+    if (selectedStatuses.includes(status)) {
+      setSelectedStatuses([
+        ...selectedStatuses.filter((value) => value !== status),
+      ]);
+    } else {
+      setSelectedStatuses([...selectedStatuses, status]);
+    }
+  };
+
   const restaurantResults = restaurants.filter(
     (restaurant) =>
       ((includeVisited && restaurant.visited) ||
         (includeUnvisited && !restaurant.visited)) &&
       filters.every((option) =>
         restaurant.options.map((option) => option.label).includes(option),
-      ),
+      ) &&
+      selectedStatuses.includes(restaurant.status),
   );
 
   const selectableButtonClasses =
@@ -115,6 +134,23 @@ export default function MainContent({
                 </label>
               </div>
             </div>
+            <CollapsibleSection
+              key="group-statuses"
+              heading="Restaurant status"
+            >
+              {statuses.map((status) => (
+                <div key={`status-${status}`}>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={selectedStatuses.includes(status)}
+                      onChange={() => toggleStatusFilter(status)}
+                    />{" "}
+                    {status}
+                  </label>
+                </div>
+              ))}
+            </CollapsibleSection>
             {Object.entries(options).map(([type, options]) => (
               <CollapsibleSection
                 key={`group-${type}`}

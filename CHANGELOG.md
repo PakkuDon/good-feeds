@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Display restaurant status in UI (either Operational, Temporarily Closed, Permanently Closed)
+- Add ability to filter restaurants by status
 
 ### Updated
 
