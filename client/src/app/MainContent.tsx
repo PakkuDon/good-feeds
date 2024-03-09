@@ -115,27 +115,25 @@ export default function MainContent({
                 </label>
               </div>
             </div>
-            <ul>
-              {Object.entries(options).map(([type, options]) => (
-                <CollapsibleSection
-                  key={`group-${type}`}
-                  heading={`${type} options`}
-                >
-                  {options.map((option: string) => (
-                    <div key={`option-${option}`}>
-                      <label>
-                        <input
-                          type="checkbox"
-                          checked={filters.includes(option)}
-                          onChange={() => toggleFilter(option)}
-                        />{" "}
-                        {option}
-                      </label>
-                    </div>
-                  ))}
-                </CollapsibleSection>
-              ))}
-            </ul>
+            {Object.entries(options).map(([type, options]) => (
+              <CollapsibleSection
+                key={`group-${type}`}
+                heading={`${type} options`}
+              >
+                {options.map((option: string) => (
+                  <div key={`option-${option}`}>
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={filters.includes(option)}
+                        onChange={() => toggleFilter(option)}
+                      />{" "}
+                      {option}
+                    </label>
+                  </div>
+                ))}
+              </CollapsibleSection>
+            ))}
           </>
         )}
       </aside>
