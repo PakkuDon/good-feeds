@@ -40,6 +40,9 @@ const Map = ({ locations }: { locations: Restaurant[] }) => (
             <div className="text-xs text-gray-600">
               Listing updated at {new Date(location.updatedAt).toDateString()}
             </div>
+            <div>
+              <b>Status: </b> {location.status}
+            </div>
             <p>
               <b>Address:</b> {location.address}
             </p>

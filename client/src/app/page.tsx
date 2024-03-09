@@ -15,6 +15,7 @@ export interface Restaurant {
   addedAt: string;
   updatedAt: string;
   visited: boolean;
+  status: string;
 }
 
 export interface RestaurantOption {
