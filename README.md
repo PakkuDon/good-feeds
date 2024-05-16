@@ -17,7 +17,7 @@ See [CHANGELOG.md](./CHANGELOG.md)
 To run this locally you will need the following:
 - Go 1.21
 - A MySQL server
-- Node.js v18 or higher
+- Node.js v20 or higher
 
 ### Backend server setup
 Create database
