@@ -23,6 +23,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	} else {
-		m.Up()
+		err = m.Up()
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 }
