@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Updated
+
+- Highlight restaurant status if restaurant is closed
+
 ### Removed
 
 - Restaurant status if restaurant is still operational

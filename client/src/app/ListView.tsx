@@ -49,7 +49,7 @@ const ListView = ({ locations }: { locations: Restaurant[] }) => {
             Listing updated at {new Date(location.updatedAt).toDateString()}
           </div>
           {location.status !== "Operational" && (
-            <div>
+            <div className="bg-red-800">
               <b>Status: </b> {location.status}
             </div>
           )}
