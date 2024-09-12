@@ -21,13 +21,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Restaurant status if restaurant is still operational
 
-## [1.10.1]
+## [1.10.1] - 2024-07-07
 
 ### Updated
 
 - Set minimum zoom level on map
 
-## [1.10.0]
+## [1.10.0] - 2024-03-11
 
 ### Added
 
@@ -38,13 +38,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add more padding around items in list view
 
-## [1.9.1]
+## [1.9.1] - 2024-03-03
 
 ### Added
 
 - Add Google Maps links to restaurants
 
-## [1.9.0]
+## [1.9.0] - 2024-02-07
 
 ### Added
 
