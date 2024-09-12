@@ -42,6 +42,12 @@ const ListView = ({ locations }: { locations: Restaurant[] }) => {
           <option value="lastUpdated">Last updated</option>
         </select>
       </div>
+      {sortedLocations.length === 0 && (
+        <div className="p-4">
+          <p className="font-bold">No results found</p>
+          <p>Please check your filters and try again.</p>
+        </div>
+      )}
       {sortedLocations.map((location) => (
         <div key={`location-${location.id}`} className="px-4 pb-4 border-b-2">
           <strong>{location.name}</strong>

@@ -25,6 +25,17 @@ const Map = ({ locations }: { locations: Restaurant[] }) => (
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Powered by Esri'
       url="https://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
     />
+    {locations.length === 0 && (
+      <div
+        style={{ zIndex: 1500 }}
+        className="absolute top-0 left-0 h-full w-full flex flex-wrap justify-center content-center"
+      >
+        <div className="p-4 text-black bg-white">
+          <p className="font-bold">No results found</p>
+          <p>Please check your filters and try again.</p>
+        </div>
+      </div>
+    )}
     <MarkerClusterGroup
       chunkedLoading
       showCoverageOnHover={false}

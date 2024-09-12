@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Display message when no results matching set filters are found
+
 ### Updated
 
 - Highlight restaurant status if restaurant is closed
