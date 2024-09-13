@@ -1,31 +1,27 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Restaurant } from "./page";
 
 const ListView = ({ locations }: { locations: Restaurant[] }) => {
   const [orderBy, setOrderBy] = useState<string>("name");
-  const [sortedLocations, setSortedLocations] = useState<Restaurant[]>([]);
+  let sortedLocations = [...locations];
 
-  useEffect(() => {
-    let result = [...locations];
-    switch (orderBy) {
-      case "id":
-        result.sort((a, b) => b.id - a.id);
-        break;
-      case "name":
-        result.sort((a, b) =>
-          a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
-        );
-        break;
-      case "lastUpdated":
-        result.sort(
-          (a, b) =>
-            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
-        );
-        break;
-    }
-    setSortedLocations(result);
-  }, [locations, orderBy]);
+  switch (orderBy) {
+    case "id":
+      sortedLocations.sort((a, b) => b.id - a.id);
+      break;
+    case "name":
+      sortedLocations.sort((a, b) =>
+        a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
+      );
+      break;
+    case "lastUpdated":
+      sortedLocations.sort(
+        (a, b) =>
+          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+      );
+      break;
+  }
 
   return (
     <>
