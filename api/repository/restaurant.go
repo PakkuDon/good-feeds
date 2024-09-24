@@ -3,7 +3,9 @@ package repository
 import (
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	"log"
+	"strings"
 	"time"
 
 	"github.com/PakkuDon/good-feeds/api/model"
@@ -49,6 +51,8 @@ func GetRestaurants(database *sql.DB) ([]model.Restaurant, error) {
 	}
 	defer rows.Close()
 
+	_, offset := time.Now().Zone()
+
 	for rows.Next() {
 		restaurant := model.Restaurant{}
 		optionsJson := []byte{}
@@ -74,8 +78,9 @@ func GetRestaurants(database *sql.DB) ([]model.Restaurant, error) {
 			return []model.Restaurant{}, err
 		}
 
-		restaurant.AddedAt, _ = time.Parse(time.DateTime, string(addedAtByteArray))
-		restaurant.UpdatedAt, _ = time.Parse(time.DateTime, string(updatedAtByteArray))
+		// Coerce timestamps to RFC3339 and include local timezone as times are not stored in UTC
+		restaurant.AddedAt, _ = time.Parse(time.RFC3339, fmt.Sprintf("%v+%v:00", strings.Replace(string(addedAtByteArray), " ", "T", 1), offset/60/60))
+		restaurant.UpdatedAt, _ = time.Parse(time.RFC3339, fmt.Sprintf("%v+%v:00", strings.Replace(string(updatedAtByteArray), " ", "T", 1), offset/60/60))
 
 		_ = json.Unmarshal([]byte(optionsJson), &parsedOptions)
 		_ = json.Unmarshal([]byte(linksJson), &parsedLinks)
