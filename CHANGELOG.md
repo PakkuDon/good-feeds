@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.10.4] - 2024-09-28
+
 ### Fixed
 
 - Add timezones to restaurant created / updated at timestamps so they are parsed to correct date
