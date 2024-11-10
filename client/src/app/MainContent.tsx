@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { OptionsByType, Restaurant, RestaurantOption } from "./page";
 import ListView from "./ListView";
 import CollapsibleSection from "@/components/CollapsibleSection";
+import SearchBar from "../components/SearchBar";
 
 const Map = dynamic(() => import("./Map"), {
   loading: () => <p>loading...</p>,
@@ -33,6 +34,7 @@ export default function MainContent({
   const [activeTab, setActiveTab] = useState<string>("map");
   const [includeVisited, setIncludeVisited] = useState<boolean>(true);
   const [includeUnvisited, setIncludeUnvisited] = useState<boolean>(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const toggleFilter = (label: string) => {
     if (filters.includes(label)) {
@@ -59,7 +61,10 @@ export default function MainContent({
       filters.every((option) =>
         restaurant.options.map((option) => option.label).includes(option),
       ) &&
-      selectedStatuses.includes(restaurant.status),
+      selectedStatuses.includes(restaurant.status) &&
+      (restaurant.name.toLowerCase().includes(searchQuery) ||
+        restaurant.address.toLowerCase().includes(searchQuery) ||
+        restaurant.description.toLowerCase().includes(searchQuery)),
   );
 
   const selectableButtonClasses =
@@ -173,7 +178,8 @@ export default function MainContent({
           </>
         )}
       </aside>
-      <main className="main-content">
+      <main className="main-content ">
+        <SearchBar onSubmit={(query) => setSearchQuery(query.toLowerCase())} />
         {activeTab === "map" && <Map locations={restaurantResults} />}
         {activeTab === "list" && <ListView locations={restaurantResults} />}
       </main>
