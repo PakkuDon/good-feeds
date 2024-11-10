@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add search functionality to allow users to filter restaurants by name, address or description
 
+### Updated
+
+- Update description meta tag
+
 ## [1.10.4] - 2024-09-28
 
 ### Fixed

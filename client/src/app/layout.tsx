@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "Good Feeds",
   description:
-    "Find places to eat or drink at around Melbourne, Victoria, Australia.",
+    "Recommended restaurants in Melbourne, Victoria, Australia and surrounding suburbs.",
 };
 
 export default function RootLayout({
