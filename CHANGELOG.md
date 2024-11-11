@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Updated
+
+- Add padding and round borders to "Order results by" dropdown on list view
+
 ## [1.11.0] - 2024-11-10
 
 ### Added

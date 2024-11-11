@@ -31,7 +31,7 @@ const ListView = ({ locations }: { locations: Restaurant[] }) => {
           id="sortOrder"
           value={orderBy}
           onChange={(event) => setOrderBy(event.target.value)}
-          className="bg-gray-800"
+          className="bg-gray-800 p-2 rounded text-sm"
         >
           <option value="name">Name (A-Z)</option>
           <option value="id">Date added</option>
