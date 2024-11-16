@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Updated
 
 - Add padding and round borders to "Order results by" dropdown on list view
+- Sort restaurants in list view by date added by default (default sort order previously by name)
 
 ## [1.11.0] - 2024-11-10
 

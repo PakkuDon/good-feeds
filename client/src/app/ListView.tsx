@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Restaurant } from "./page";
 
 const ListView = ({ locations }: { locations: Restaurant[] }) => {
-  const [orderBy, setOrderBy] = useState<string>("name");
+  const [orderBy, setOrderBy] = useState<string>("id");
   let sortedLocations = [...locations];
 
   switch (orderBy) {
@@ -33,8 +33,8 @@ const ListView = ({ locations }: { locations: Restaurant[] }) => {
           onChange={(event) => setOrderBy(event.target.value)}
           className="bg-gray-800 p-2 rounded text-sm"
         >
-          <option value="name">Name (A-Z)</option>
           <option value="id">Date added</option>
+          <option value="name">Name (A-Z)</option>
           <option value="lastUpdated">Last updated</option>
         </select>
       </div>
