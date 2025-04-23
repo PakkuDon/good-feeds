@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add button to clear search bar
+
 ## [1.11.1] - 2024-11-16
 
 ### Updated

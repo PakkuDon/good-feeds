@@ -16,6 +16,11 @@ const SearchBar = ({ onSubmit }: SearchBarProps) => {
     onSubmit(searchQuery);
   };
 
+  const handleReset = () => {
+    setSearchQuery("");
+    onSubmit("");
+  };
+
   return (
     <form className="pb-4 flex" onSubmit={handleSubmit}>
       <input
@@ -24,6 +29,13 @@ const SearchBar = ({ onSubmit }: SearchBarProps) => {
         placeholder="Search by name, address or description"
         value={searchQuery}
         onChange={handleTextChange}
+      />
+      <input
+        type="reset"
+        value="X"
+        alt="Clear search"
+        className="flex-none rounded bg-gray-800 hover:bg-gray-600 py-2 px-3 font-semibold text-sm"
+        onClick={handleReset}
       />
       <button
         type="submit"
