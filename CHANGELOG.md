@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add button to clear search bar
 
+### Updated
+
+- Add spacing between search button and search input
+- Group clear button with search input
+
 ## [1.11.1] - 2024-11-16
 
 ### Updated

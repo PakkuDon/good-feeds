@@ -25,7 +25,7 @@ const SearchBar = ({ onSubmit }: SearchBarProps) => {
     <form className="pb-4 flex" onSubmit={handleSubmit}>
       <input
         type="text"
-        className="flex-1 rounded bg-gray-800 p-2 text-sm max-w-3xl"
+        className="flex-1 rounded-tl rounded-bl bg-gray-800 p-2 text-sm max-w-3xl"
         placeholder="Search by name, address or description"
         value={searchQuery}
         onChange={handleTextChange}
@@ -34,12 +34,12 @@ const SearchBar = ({ onSubmit }: SearchBarProps) => {
         type="reset"
         value="X"
         alt="Clear search"
-        className="flex-none rounded bg-gray-800 hover:bg-gray-600 py-2 px-3 font-semibold text-sm"
+        className="flex-none rounded-tr rounded-br bg-gray-800 py-2 px-3 font-semibold text-sm"
         onClick={handleReset}
       />
       <button
         type="submit"
-        className="flex-none rounded bg-gray-800 hover:bg-gray-600 p-2 font-semibold text-sm"
+        className="flex-none rounded bg-gray-800 hover:bg-gray-600 p-2 font-semibold text-sm ml-2"
       >
         Search
       </button>
