@@ -84,7 +84,13 @@ func GetRestaurants(database *sql.DB) ([]model.Restaurant, error) {
 
 		_ = json.Unmarshal([]byte(optionsJson), &parsedOptions)
 		_ = json.Unmarshal([]byte(linksJson), &parsedLinks)
-		restaurant.Options = parsedOptions
+
+		// Get option labels only
+		optionLabels := []string{}
+		for _, option := range parsedOptions {
+			optionLabels = append(optionLabels, option.Label)
+		}
+		restaurant.Options = optionLabels
 		restaurant.Links = parsedLinks
 		restaurants = append(restaurants, restaurant)
 	}

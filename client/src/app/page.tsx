@@ -11,7 +11,7 @@ export interface Restaurant {
     label: string;
     url: string;
   }[];
-  options: RestaurantOption[];
+  options: string[];
   addedAt: string;
   updatedAt: string;
   visited: boolean;

@@ -58,9 +58,7 @@ export default function MainContent({
     (restaurant) =>
       ((includeVisited && restaurant.visited) ||
         (includeUnvisited && !restaurant.visited)) &&
-      filters.every((option) =>
-        restaurant.options.map((option) => option.label).includes(option),
-      ) &&
+      filters.every((option) => restaurant.options.includes(option)) &&
       selectedStatuses.includes(restaurant.status) &&
       (restaurant.name.toLowerCase().includes(searchQuery) ||
         restaurant.address.toLowerCase().includes(searchQuery) ||

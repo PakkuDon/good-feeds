@@ -61,9 +61,7 @@ const Map = ({ locations }: { locations: Restaurant[] }) => (
             </p>
             <p>{location.description}</p>
             <p>
-              <b>Options:</b>{" "}
-              {location.options.map((option) => option.label).join(", ") ||
-                "N/A"}
+              <b>Options:</b> {location.options.join(", ") || "N/A"}
             </p>
             <ul>
               {location.links.map((link) => (

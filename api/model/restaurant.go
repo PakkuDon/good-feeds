@@ -14,7 +14,7 @@ type Restaurant struct {
 	Address     string    `json:"address"`
 	Latitude    float64   `json:"latitude"`
 	Longitude   float64   `json:"longitude"`
-	Options     []Option  `json:"options"`
+	Options     []string  `json:"options"`
 	Links       []Link    `json:"links"`
 	AddedAt     time.Time `json:"addedAt"`
 	UpdatedAt   time.Time `json:"updatedAt"`
