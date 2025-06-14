@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Updated
+
+- Allow user to toggle option filters by clicking on group header
+
 ## [1.11.2] - 2025-04-23
 
 ### Added

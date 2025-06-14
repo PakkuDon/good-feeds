@@ -9,31 +9,14 @@ const CollapsibleSection = ({ children, heading }: CollapsibleSectionProps) => {
   const [visible, setVisible] = useState<boolean>(true);
 
   return (
-    <div className="pb-4">
-      <header className="flex justify-between">
-        <div className="font-bold text">
-          <span className="capitalize">{heading}</span>
-        </div>
-        {visible ? (
-          <button
-            className="rounded bg-gray-800 hover:bg-gray-600 px-2 font-semibold text-sm"
-            aria-label={`Hide ${heading}`}
-            onClick={() => setVisible(false)}
-          >
-            -
-          </button>
-        ) : (
-          <button
-            className="rounded bg-gray-800 hover:bg-gray-600 px-2 font-semibold text-sm"
-            aria-label={`Show ${heading}`}
-            onClick={() => setVisible(true)}
-          >
-            +
-          </button>
-        )}
-      </header>
-      {visible && children}
-    </div>
+    <details
+      className="pb-4"
+      open={visible}
+      onToggle={() => setVisible(!visible)}
+    >
+      <summary className="font-bold text capitalize">{heading}</summary>
+      {children}
+    </details>
   );
 };
 
