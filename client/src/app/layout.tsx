@@ -4,8 +4,11 @@ import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const titlePrefix =
+  process.env.NODE_ENV === "development" ? "[Development] " : "";
+
 export const metadata = {
-  title: "Good Feeds",
+  title: `${titlePrefix}Good Feeds`,
   description:
     "Recommended restaurants in Melbourne, Victoria, Australia and surrounding suburbs.",
 };
