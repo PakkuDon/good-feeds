@@ -42,7 +42,6 @@ func GetRestaurants(database *sql.DB) ([]model.Restaurant, error) {
 				GROUP BY restaurant_id
 			) AS links
 		FROM restaurants
-		WHERE status != "Unlisted"
 	`)
 
 	if err != nil {
