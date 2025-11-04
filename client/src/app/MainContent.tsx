@@ -10,9 +10,10 @@ import { OptionsByType, Restaurant } from "./page";
 import ListView from "./ListView";
 import CollapsibleSection from "@/components/CollapsibleSection";
 import SearchBar from "../components/SearchBar";
+import MapPlaceholder from "./MapPlaceholder";
 
 const Map = dynamic(() => import("./Map"), {
-  loading: () => <p>loading...</p>,
+  loading: () => <MapPlaceholder />,
   ssr: false,
 });
 

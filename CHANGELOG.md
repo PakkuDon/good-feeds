@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Updated
+
+- Swap out "loading" placeholder text with placeholder for map
+
 ## [1.11.4] - 2025-10-28
 
 ### Fixed
