@@ -1,5 +1,9 @@
 "use client";
 
+// Leaflet CSS used by <Map /> component
+// Import early to reduce bundle size for dynamic import
+import "leaflet/dist/leaflet.css";
+
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import { OptionsByType, Restaurant } from "./page";
