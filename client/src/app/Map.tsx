@@ -4,7 +4,7 @@ import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import MarkerClusterGroup from "react-leaflet-cluster";
 
-import { Restaurant } from "./page";
+import type { Restaurant } from "./page";
 
 // Resolves an issue where Leaflet icons are not available in Next.js
 // Taken from https://github.com/Leaflet/Leaflet/issues/4968#issuecomment-483402699

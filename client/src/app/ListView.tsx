@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Restaurant } from "./page";
+import type { Restaurant } from "./page";
 
 const ListView = ({ locations }: { locations: Restaurant[] }) => {
   const [orderBy, setOrderBy] = useState<string>("id");

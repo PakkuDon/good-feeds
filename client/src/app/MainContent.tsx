@@ -6,7 +6,7 @@ import "leaflet/dist/leaflet.css";
 
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
-import { OptionsByType, Restaurant } from "./page";
+import type { OptionsByType, Restaurant } from "./page";
 import ListView from "./ListView";
 import CollapsibleSection from "@/components/CollapsibleSection";
 import SearchBar from "../components/SearchBar";
