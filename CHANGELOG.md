@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Swap out "loading" placeholder text with placeholder for map
 - Display pointer cursor when mouse is over collapsible sections
+- Add horizontal borders between different filter groups
 
 ## [1.11.4] - 2025-10-28
 
