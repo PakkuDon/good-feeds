@@ -119,9 +119,8 @@ export default function MainContent({
                 {restaurantResults.length === 1 ? "result" : "results"}
               </span>
             </div>
-            <div className="pb-4">
+            <CollapsibleSection key="group-visited" heading="Visited status">
               <div>
-                <div className="font-bold text">Filters</div>
                 <label>
                   <input
                     type="checkbox"
@@ -141,7 +140,7 @@ export default function MainContent({
                   Show unvisited
                 </label>
               </div>
-            </div>
+            </CollapsibleSection>
             <CollapsibleSection
               key="group-statuses"
               heading="Restaurant status"
