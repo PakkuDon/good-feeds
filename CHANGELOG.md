@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.11.5] - 2025-11-14
+
 ### Updated
 
 - Swap out "loading" placeholder text with placeholder for map
