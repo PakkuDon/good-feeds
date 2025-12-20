@@ -2,6 +2,10 @@ import L from "leaflet";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
+// Manual CSS imports for react-leaflet-cluster required from v3 onwards
+// https://github.com/akursat/react-leaflet-cluster?tab=readme-ov-file#breaking-changes-in-v300
+import "react-leaflet-cluster/dist/assets/MarkerCluster.css";
+import "react-leaflet-cluster/dist/assets/MarkerCluster.Default.css";
 import MarkerClusterGroup from "react-leaflet-cluster";
 
 import type { Restaurant } from "./page";
