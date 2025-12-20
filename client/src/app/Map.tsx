@@ -13,9 +13,9 @@ import type { Restaurant } from "./page";
 // Resolves an issue where Leaflet icons are not available in Next.js
 // Taken from https://github.com/Leaflet/Leaflet/issues/4968#issuecomment-483402699
 L.Icon.Default.mergeOptions({
-  iconUrl: markerIcon.src,
-  iconRetinaUrl: markerIcon2x.src,
-  shadowUrl: markerShadow.src,
+  iconUrl: markerIcon,
+  iconRetinaUrl: markerIcon2x,
+  shadowUrl: markerShadow,
 });
 
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
