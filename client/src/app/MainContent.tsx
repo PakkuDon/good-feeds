@@ -11,6 +11,7 @@ import ListView from "./ListView";
 import CollapsibleSection from "@/components/CollapsibleSection";
 import SearchBar from "../components/SearchBar";
 import MapPlaceholder from "./MapPlaceholder";
+import { restaurantStatuses } from "./constants";
 
 const Map = dynamic(() => import("./Map"), {
   loading: () => <MapPlaceholder />,
@@ -22,17 +23,12 @@ interface MainContentProps {
   options: OptionsByType;
 }
 
-// List taken from api/db/migrations/11_add_restaurant_status.up.sql
-// We could retrieve this from the backend but these values are not expected
-// to change often so it's hard-coded here for convenience
-const statuses = ["Operational", "Temporarily closed", "Permanently closed"];
-
 export default function MainContent({
   restaurants,
   options,
 }: MainContentProps) {
   const [selectedStatuses, setSelectedStatuses] = useState<string[]>([
-    statuses[0],
+    restaurantStatuses[0],
   ]);
   const [showFilters, setShowFilters] = useState<boolean>(true);
   const [filters, setFilters] = useState<string[]>([]);
@@ -145,7 +141,7 @@ export default function MainContent({
               key="group-statuses"
               heading="Restaurant status"
             >
-              {statuses.map((status) => (
+              {restaurantStatuses.map((status) => (
                 <div key={`status-${status}`}>
                   <label>
                     <input
