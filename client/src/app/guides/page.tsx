@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-interface Guide {
+export interface Guide {
   title: string;
   description: string;
   restaurantIds: number[];
