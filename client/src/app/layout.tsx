@@ -28,6 +28,12 @@ export default function RootLayout({
           <header className="main-header px-4 pt-4 flex justify-between flex-row">
             <h1>Good Feeds</h1>
             <div className="flex gap-4">
+              <Link href="/guides">
+                Guides{" "}
+                <span className="rounded-md bg-green-900 px-2 text-green-400">
+                  New
+                </span>
+              </Link>
               <Link href="/about">About</Link>
               <Link
                 target="_blank"
