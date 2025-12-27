@@ -31,7 +31,9 @@ export default async function Guides() {
       <ul>
         {Object.entries(guides).map(([slug, guide]) => (
           <div key={`guide-${slug}`} className="pb-4 border-b-2">
-            <strong>{guide.title}</strong>
+            <Link href={`/guides/${slug}`}>
+              <strong>{guide.title}</strong>
+            </Link>
             <div>{guide.description}</div>
             <div>{guide.restaurantIds.length} restaurants listed</div>
           </div>
