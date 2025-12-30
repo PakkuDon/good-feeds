@@ -12,6 +12,8 @@ This project is a web application where users can share their bread creations, a
 
 We need some way of persisting details about our users, their posts and their ratings. It is also likely that we may need to retrieve data that is related to other data, such as a user's past posts or all reviews for a given post.
 
+**December 30 2025 update:** This project initially started off as an app where users could share and comment on pictures of bread. In [May 2023](https://github.com/PakkuDon/good-feeds/commit/6284f6b45796e536796ea2707b3af5fd90003a5d) this project was repurposed to be an app where users could search through restaurants that I've recommended. The context above has been left as is for posterity
+
 ## Decision
 
 We will record our application's data in a relational database.
