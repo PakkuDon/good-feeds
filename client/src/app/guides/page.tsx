@@ -4,6 +4,8 @@ export interface Guide {
   title: string;
   description: string;
   restaurantIds: number[];
+  addedAt: string;
+  updatedAt: string;
 }
 
 const titlePrefix =
@@ -45,6 +47,12 @@ export default async function Guides() {
             </Link>
             <div>{guide.description}</div>
             <div>{guide.restaurantIds.length} restaurants listed</div>
+            <div className="text-xs text-gray-300">
+              Added at {new Date(guide.addedAt).toDateString()}
+            </div>
+            <div className="text-xs text-gray-300">
+              Updated at {new Date(guide.updatedAt).toDateString()}
+            </div>
           </div>
         ))}
       </ul>

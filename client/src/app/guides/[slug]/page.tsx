@@ -92,6 +92,12 @@ export default async function GuideDetails({
       <div className="main-sidebar px-4 py-2">
         <h2 className="mt-0">{guide.title}</h2>
         <p>{guide.description}</p>
+        <div className="text-xs text-gray-300">
+          Added at {new Date(guide.addedAt).toDateString()}
+        </div>
+        <div className="text-xs text-gray-300">
+          Updated at {new Date(guide.updatedAt).toDateString()}
+        </div>
         <Link href="/">View all restaurants</Link>
       </div>
       <MainContent restaurants={restaurantsInGuide} options={optionsByGroup} />
