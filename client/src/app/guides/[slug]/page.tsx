@@ -8,6 +8,24 @@ export async function generateStaticParams() {
   return Object.keys(guides).map((slug) => ({ slug }));
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const guides = await getGuides();
+  const guide = guides[slug];
+
+  const titlePrefix =
+    process.env.NODE_ENV === "development" ? "[Development] " : "";
+
+  return {
+    title: `${titlePrefix} ${guide.title} | Good Feeds`,
+    description: guide.description,
+  };
+}
+
 async function getGuides(): Promise<{ [slug: string]: Guide }> {
   const response = await fetch(`${process.env.NEXT_CLIENT_URL}/guides.json`, {
     next: { revalidate: 10 },

@@ -1,5 +1,14 @@
 import Link from "next/link";
 
+const titlePrefix =
+  process.env.NODE_ENV === "development" ? "[Development] " : "";
+
+export const metadata = {
+  title: `${titlePrefix} About | Good Feeds`,
+  description:
+    "Recommended restaurants in Melbourne, Victoria, Australia and surrounding suburbs.",
+};
+
 export default function About() {
   return (
     <div>
