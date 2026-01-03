@@ -2,6 +2,37 @@
 title: Entity Relationship Diagram - Good Feeds
 ---
 erDiagram
+    Restaurant {
+        int id
+        text name
+        text address
+        decimal latitude
+        decimal longitude
+        text description
+        timestamp added_at
+        datetime updated_at
+        tinyint visited
+        enum status
+    }
+
+    RestaurantOptions {
+        int restaurant_id
+        int option_id
+    }
+
+    Options {
+        int id
+        text label
+        text type
+    }
+
+    Links {
+        int id
+        text url
+        text label
+        int restaurant_id
+    }
+
     Restaurant ||--o{ Links : has
     Restaurant ||--o{ RestaurantOptions : has
-    RestaurantOptions }o--|| Option : has
+    RestaurantOptions }o--|| Options : has
