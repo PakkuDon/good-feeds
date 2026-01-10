@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add guides - Curated and sometimes themed recommendations for restaurants
 - Set specific page title on About and Guide pages
 
+### Updated
+
+- Convert page title to home page link
+
 ## [1.11.5] - 2025-11-14
 
 ### Updated
