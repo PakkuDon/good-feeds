@@ -12,9 +12,6 @@ export const metadata = {
 export default function About() {
   return (
     <div>
-      <div className="main-sidebar px-4 pt-4">
-        <Link href="/">Back to index</Link>
-      </div>
       <div className="px-4 pt-4">
         <div className="pb-4">
           <h2>About Good Feeds</h2>

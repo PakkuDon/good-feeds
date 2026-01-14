@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Convert page title to home page link
 
+### Removed
+
+- Remove "Back to index" links from /about and /guides
+
 ## [1.11.5] - 2025-11-14
 
 ### Updated

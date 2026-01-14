@@ -35,9 +35,6 @@ export default async function Guides() {
 
   return (
     <div className="px-4 pt-4">
-      <div className="main-sidebar pt-4">
-        <Link href="/">Back to index</Link>
-      </div>
       <h2>Guides</h2>
       <ul>
         {Object.entries(guides).map(([slug, guide]) => (
