@@ -89,7 +89,7 @@ export default async function GuideDetails({
 
   return (
     <>
-      <div className="main-sidebar px-4 py-2">
+      <div className="px-4 py-2">
         <h2 className="mt-0">{guide.title}</h2>
         <p>{guide.description}</p>
         <div className="text-xs text-gray-300">
