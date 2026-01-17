@@ -25,7 +25,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} h-screen text-white bg-black`}>
         <div className="min-h-full grid grid-rows-[min-content_1fr]">
-          <header className="main-header px-4 pt-4 flex justify-between flex-row">
+          <header className="main-header px-4 pt-4 sm:flex justify-between flex-row">
             <Link href="/">
               <h1>Good Feeds</h1>
             </Link>
