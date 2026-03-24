@@ -12,5 +12,12 @@
     "restaurantIds": [38, 174, 200, 216, 220, 302, 351, 366, 380, 394, 399, 426, 427, 446],
     "addedAt": "2025-12-26T22:52:53+11:00",
     "updatedAt": "2025-12-26T22:52:53+11:00"
+  },
+  "bakers-dozen-2026": {
+    "title": "MFWF Baker's Dozen 2026",
+    "description": "Bakeries featured at Baker's Dozen 2026 by Melbourne Food and Wine Festival",
+    "restaurantIds": [38, 76, 174, 200, 216, 220, 351, 366, 377, 394, 399, 400, 426, 427, 457],
+    "addedAt": "2026-03-24T20:24:00+11:00",
+    "updatedAt": "2026-03-24T20:24:00+11:00"
   }
 }
