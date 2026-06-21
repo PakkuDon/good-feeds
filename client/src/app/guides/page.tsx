@@ -18,7 +18,7 @@ export const metadata = {
 };
 
 async function getGuides(): Promise<{ [slug: string]: Guide }> {
-  const response = await fetch(`${process.env.NEXT_CLIENT_URL}/guides.json`, {
+  const response = await fetch(`${process.env.NEXT_BACKEND_HOST}/static/guides.json`, {
     next: { revalidate: 10 },
   });
 

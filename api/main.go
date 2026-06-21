@@ -7,6 +7,8 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/PakkuDon/good-feeds/api/handler"
 	"github.com/go-chi/chi/v5"
@@ -67,4 +69,18 @@ func (app Api) registerRoutes(router *chi.Mux) {
 
 	router.Get("/api/restaurants", handler.GetRestaurants(database))
 	router.Get("/api/options", handler.GetOptions(database))
+
+	staticFileRoutes(router)
+}
+
+func staticFileRoutes(router chi.Router) {
+	workDir, _ := os.Getwd()
+	filesDir := http.Dir(filepath.Join(workDir, "static"))
+
+	router.Get("/static/*", func(writer http.ResponseWriter, request *http.Request) {
+		routeContext := chi.RouteContext(request.Context())
+		pathPrefix := strings.TrimSuffix(routeContext.RoutePattern(), "/*")
+		fs := http.StripPrefix(pathPrefix, http.FileServer(filesDir))
+		fs.ServeHTTP(writer, request)
+	})
 }
