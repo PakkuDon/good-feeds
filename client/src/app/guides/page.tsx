@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getGuides } from "../requests";
 
 export interface Guide {
   title: string;
@@ -16,19 +17,6 @@ export const metadata = {
   description:
     "Recommended restaurants in Melbourne, Victoria, Australia and surrounding suburbs.",
 };
-
-async function getGuides(): Promise<{ [slug: string]: Guide }> {
-  const response = await fetch(`${process.env.NEXT_BACKEND_HOST}/static/guides.json`, {
-    next: { revalidate: 10 },
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch data from /guides.json");
-  }
-
-  const json = await response.json();
-  return json;
-}
 
 export default async function Guides() {
   const guides = await getGuides();

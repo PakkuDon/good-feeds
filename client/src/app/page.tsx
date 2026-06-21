@@ -1,4 +1,5 @@
 import MainContent from "./MainContent";
+import { getRestaurants, getOptions } from "./requests";
 
 export interface Restaurant {
   id: number;
@@ -26,31 +27,6 @@ export interface RestaurantOption {
 
 export interface OptionsByType {
   [index: string]: string[];
-}
-
-async function getRestaurants(): Promise<Restaurant[]> {
-  const response = await fetch(
-    `${process.env.NEXT_BACKEND_HOST}/api/restaurants`,
-    { next: { revalidate: 10 } },
-  );
-  const json = await response.json();
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch data from /api/restaurants");
-  }
-  return json;
-}
-
-async function getOptions(): Promise<RestaurantOption[]> {
-  const response = await fetch(`${process.env.NEXT_BACKEND_HOST}/api/options`, {
-    next: { revalidate: 10 },
-  });
-  const json = await response.json();
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch data from /api/options");
-  }
-  return json;
 }
 
 export default async function Home() {

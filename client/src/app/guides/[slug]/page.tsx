@@ -1,7 +1,7 @@
 import Link from "next/link";
 import MainContent from "@/app/MainContent";
-import type { Guide } from "../page";
-import { OptionsByType, Restaurant, RestaurantOption } from "@/app/page";
+import { getRestaurants, getOptions, getGuides } from "@/app/requests";
+import { OptionsByType } from "@/app/page";
 
 export async function generateStaticParams() {
   const guides = await getGuides();
@@ -24,45 +24,6 @@ export async function generateMetadata({
     title: `${titlePrefix} ${guide.title} | Good Feeds`,
     description: guide.description,
   };
-}
-
-async function getGuides(): Promise<{ [slug: string]: Guide }> {
-  const response = await fetch(`${process.env.NEXT_BACKEND_HOST}/static/guides.json`, {
-    next: { revalidate: 10 },
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch data from /guides.json");
-  }
-
-  const json = await response.json();
-  return json;
-}
-
-// TODO: Reduce duplication with @/app/page
-async function getRestaurants(): Promise<Restaurant[]> {
-  const response = await fetch(
-    `${process.env.NEXT_BACKEND_HOST}/api/restaurants`,
-    { next: { revalidate: 10 } },
-  );
-  const json = await response.json();
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch data from /api/restaurants");
-  }
-  return json;
-}
-
-async function getOptions(): Promise<RestaurantOption[]> {
-  const response = await fetch(`${process.env.NEXT_BACKEND_HOST}/api/options`, {
-    next: { revalidate: 10 },
-  });
-  const json = await response.json();
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch data from /api/options");
-  }
-  return json;
 }
 
 export default async function GuideDetails({
